@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>isaac hq</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="isaac hq">
+  <meta name="application-name" content="isaac hq">
+  <meta name="msapplication-TileColor" content="#D9EAD3">
+  <meta name="theme-color" content="#D9EAD3">
+  <style>
+    :root {
+      --shadow: 0 4px 14px rgba(0,0,0,0.09);
+      --shadow-low: 0 1px 4px rgba(0,0,0,0.06);
+      --fs: 1.2; /* text size multiplier, changed by the a+ button */
+      --surface: #ffffff;
+      --surface-muted: #FBF7F0;
+      --border: #F0EBE0;
+      --text: #3D3A34;
+      --text-secondary: #8A8578;
+      --text-muted: #9C9A92;
+      --text-mid: #646056;
+      --danger: #b3261e;
+      --danger-bg: #FBD4CE;
+      --danger-text: #A03A2C;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --feed-bg: #CFE8F7;
+      --feed-text: #1F5C7A;
+      --title-coral: #CC6C5D;
+      --isaac-badge-bg: #D9EAD3;
+      --surface-muted-rgb: 251, 247, 240;
+      --save-bg: #DCEFDC;
+      --save-text: #3F6B32;
+      --sleep-bg: #FFF3CF;
+      --sleep-text: #8A6D1F;
+      --sleep-ink: #8A6D1F;
+      --feed-ink: #1F5C7A;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --surface: #2B221C;
+        --surface-muted: #1B1511;
+        --surface-muted-rgb: 27, 21, 17;
+        --border: #3B2F27;
+        --text: #EADBC8;
+        --text-secondary: #A89480;
+        --text-muted: #9A8672;
+        --text-mid: #E0D0BC;
+        --danger: #E58E96;
+        --danger-bg: #D9A5A8;
+        --danger-text: #4A1A22;
+        --feed-bg: #7E9FB3;
+        --feed-text: #12222D;
+        --title-coral: #8FAE8F;
+        --isaac-badge-bg: #8FAE8F;
+        --save-bg: #8FAE8F;
+        --save-text: #16301A;
+        --sleep-bg: #D2B26A;
+        --sleep-text: #2E2208;
+        --sleep-ink: #D2B26A;
+        --feed-ink: #7E9FB3;
+      }
+    }
+    :root[data-theme="dark"] {
+      --surface: #2B221C;
+      --surface-muted: #1B1511;
+      --surface-muted-rgb: 27, 21, 17;
+      --border: #3B2F27;
+      --text: #EADBC8;
+      --text-secondary: #A89480;
+      --text-muted: #9A8672;
+      --text-mid: #E0D0BC;
+      --danger: #E58E96;
+      --danger-bg: #D9A5A8;
+      --danger-text: #4A1A22;
+      --feed-bg: #7E9FB3;
+      --feed-text: #12222D;
+      --title-coral: #8FAE8F;
+      --isaac-badge-bg: #8FAE8F;
+      --save-bg: #8FAE8F;
+      --save-text: #16301A;
+      --sleep-bg: #D2B26A;
+      --sleep-text: #2E2208;
+      --sleep-ink: #D2B26A;
+      --feed-ink: #7E9FB3;
+    }
+    * { box-sizing: border-box; }
+    /* Everything is lowercase, by design. Form controls need it set explicitly. */
+    body, button, input, select, textarea { text-transform: lowercase; }
+    body {
+      margin: 0;
+      font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--surface-muted);
+      color: var(--text-mid);
+    }
+    .container { max-width: 420px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+    .card { background: var(--surface); border-radius: var(--radius-lg); border: none; padding: 1.1rem 1.25rem; }
+    button {
+      font-family: inherit; font-size: calc(14px * var(--fs)); font-weight: 600; border: none;
+      background: var(--surface); border-radius: 18px; padding: 10px 14px; cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    button:active { transform: scale(0.98); }
+    .icon-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; height: 64px; border-radius: 20px; font-size: calc(16px * var(--fs)); }
+    .icon-btn .btn-sub { font-size: calc(11px * var(--fs)); font-weight: 500; opacity: 0.85; }
+    .icon-btn svg { width: 26px; height: 26px; }
+    .icon-btn.feed { background: var(--feed-bg); color: var(--feed-text); }
+    input {
+      font-family: inherit; font-size: calc(16px * var(--fs)); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 10px 12px; background: var(--surface);
+      color: var(--text-mid); width: 100%;
+    }
+    .time-trigger {
+      font-family: inherit; font-size: calc(16px * var(--fs)); font-weight: 500; text-align: left;
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px;
+      background: var(--surface); color: var(--text-mid); width: 100%;
+    }
+    .picker-col {
+      overflow-y: scroll; scroll-snap-type: y mandatory; height: 180px; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+    }
+    .picker-col::-webkit-scrollbar { display: none; }
+    .picker-col .picker-item {
+      height: 36px; display: flex; align-items: center; justify-content: center;
+      font-size: calc(16px * var(--fs)); scroll-snap-align: center; color: var(--text-muted);
+      transition: font-size 0.12s ease, color 0.12s ease, font-weight 0.12s ease;
+    }
+    .picker-col .picker-item.selected { color: var(--text); font-weight: 700; font-size: calc(21px * var(--fs)); }
+    .picker-overlay { display: flex; align-items: flex-end; }
+    .is-touch .desktop-time { display: none; }
+    .is-desktop .touch-time { display: none; }
+    body:not(.is-touch):not(.is-desktop) .touch-time { display: none; }
+    label { font-size: calc(13px * var(--fs)); color: var(--text-mid); display: block; margin-bottom: 4px; font-weight: 500; }
+    .toggle-row { display: grid; gap: 6px; margin-bottom: 16px; }
+    .toggle-row button { background: var(--surface); border: 1px solid var(--border); color: var(--text-mid); }
+    .toggle-row.feed-accent button.active { background: var(--feed-bg); color: var(--feed-text); border-color: transparent; font-weight: 700; }
+    .stat-value { font-size: calc(15px * var(--fs)); font-weight: 600; margin: 0; color: var(--text-mid); }
+    .stat-sub { font-size: calc(11px * var(--fs)) !important; font-weight: 400 !important; color: var(--text-mid) !important; margin: 1px 0 0 !important; }
+    .trend-card { background: var(--surface); border-radius: 18px; padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.1s ease, box-shadow 0.1s ease; }
+    .trend-card.static { cursor: default; }
+    .trend-card.static:active { transform: none; box-shadow: var(--shadow); }
+    .page-head .round-btn { box-shadow: var(--shadow); }
+    /* Bigger tap area (about 44px) without changing how the round buttons look */
+    .round-btn { position: relative; }
+    .round-btn::after { content: ''; position: absolute; inset: max(-4px, calc((44px - 30px * var(--fs)) / -2)); }
+    /* Quick fade when switching screens (opacity only, so fixed bars keep their place) */
+    @keyframes viewfade { from { opacity: 0; } to { opacity: 1; } }
+    .view-fade { animation: viewfade 0.18s ease-out; }
+    @media (prefers-reduced-motion: reduce) { .view-fade { animation: none; } }
+    #view-trends .trend-card, #view-trends .pattern-card, #view-trends .ud-card, #trends-list > div { box-shadow: var(--shadow-low); }
+    #view-trends .trend-card.static:active { box-shadow: var(--shadow-low); }
+    .trend-card:active { transform: scale(0.96); box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .trend-card .log-badge svg { width: 17px; height: 17px; }
+    .trend-card p { margin: 0; }
+    .fixed-top-bar {
+      position: fixed; top: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto;
+      padding: 1.25rem 1rem 30px; z-index: 10; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(var(--surface-muted-rgb), 1) calc(100% - 30px), rgba(var(--surface-muted-rgb), 0) 100%);
+    }
+    .fixed-top-bar > * { pointer-events: auto; }
+    .refresh-spin.spin span { display: inline-block; animation: spin 0.8s linear infinite; }
+    .stats-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; margin: 0; }
+    .stats-card .stat { background: var(--surface); border-radius: 18px; padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: var(--shadow); transition: transform 0.1s ease, box-shadow 0.1s ease; }
+    .stats-card .stat:active { transform: scale(0.96); box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+    .stats-card .stat p { margin: 0; }
+    .stats-card .stat:nth-child(1) { border-top: 6px solid var(--sleep-bg); }
+    .stats-card .stat:nth-child(2) { border-top: 6px solid var(--feed-bg); }
+    .settings-scrim { position: fixed; inset: 0; z-index: 80; }
+    .settings-pop { position: fixed; z-index: 81; width: 232px; background: var(--surface); border-radius: 20px; padding: 14px; box-shadow: 0 12px 36px rgba(0,0,0,0.25); border: 1px solid var(--border); }
+    .settings-pop .srow-label { font-size: calc(12px * var(--fs)); color: var(--text-muted); font-weight: 600; margin: 0 0 6px; }
+    .settings-seg { display: flex; gap: 4px; background: var(--surface-muted); border-radius: 14px; padding: 3px; margin-bottom: 12px; }
+    .settings-seg:last-child { margin-bottom: 0; }
+    .settings-seg button { flex: 1; background: transparent; color: var(--text-mid); border-radius: 11px; padding: 11px 0; font-weight: 600; font-size: calc(13px * var(--fs)); }
+    .settings-seg button.active { background: var(--save-bg); color: var(--save-text); font-weight: 700; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fixed-bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; max-width: 420px; margin: 0 auto;
+      padding: 28px 1rem 20px; z-index: 10;
+      background: linear-gradient(to bottom, rgba(var(--surface-muted-rgb), 0) 0%, rgba(var(--surface-muted-rgb), 1) 40%);
+    }
+    #dashboard-bottom-bar .icon-btn { box-shadow: 0 6px 16px rgba(0,0,0,0.1); transition: transform 0.1s ease, box-shadow 0.1s ease; }
+    #dashboard-bottom-bar .icon-btn:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    /* White buttons with a pastel edge on top, so they don't blend into the timeline blocks */
+    #dashboard-bottom-bar .icon-btn { background: var(--surface); color: var(--text); border-top: 6px solid transparent; box-shadow: 0 8px 20px rgba(0,0,0,0.13); }
+    #dashboard-bottom-bar .icon-btn.sleep { border-top-color: var(--sleep-bg); }
+    #dashboard-bottom-bar .icon-btn.feed { border-top-color: var(--feed-bg); }
+    #dashboard-bottom-bar .icon-btn .btn-sub { color: var(--text-secondary); opacity: 1; }
+    .log-badge { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .log-badge.feed { background: var(--feed-bg); color: var(--feed-text); }
+    .log-badge svg { width: 18px; height: 18px; }
+    .log-badge { font-size: calc(18px * var(--fs)); }
+    .icon-btn.sleep { background: var(--sleep-bg); color: var(--sleep-text); }
+    .log-badge.sleep { background: var(--sleep-bg); color: var(--sleep-text); }
+    .toggle-row.sleep-accent button.active { background: var(--sleep-bg); color: var(--sleep-text); border-color: transparent; font-weight: 700; }
+    .delete-btn { background: var(--danger-bg); color: var(--danger-text); }
+    .card { box-shadow: var(--shadow); }
+    .card.has-trash { position: relative; }
+    #view-log-feed .card { border-top: 7px solid var(--feed-bg); }
+    #view-log-sleep .card { border-top: 7px solid var(--sleep-bg); }
+    .trash-btn { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; padding: 0; border-radius: 50%; background: var(--danger-bg); color: var(--danger-text); display: flex; align-items: center; justify-content: center; }
+    .trash-btn svg { width: 17px; height: 17px; }
+    .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 60; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+    #view-dashboard { padding-bottom: 36px; display: flex; flex-direction: column; min-height: calc(100vh - 2.5rem); }
+    #view-dashboard.hv-list { display: block; min-height: 0; padding-bottom: 120px; }
+    #timeline-wrap { margin-top: auto; }
+    .view-switch { display: flex; gap: 4px; background: var(--surface); border-radius: 18px; padding: 4px; margin: 10px 0 0; box-shadow: var(--shadow); }
+    .view-switch button { flex: 1; background: transparent; color: var(--text-mid); border-radius: 14px; padding: 10px 0; font-size: calc(13px * var(--fs)); font-weight: 600; }
+    .view-switch button.active { background: var(--save-bg); color: var(--save-text); font-weight: 700; }
+    .round-btn { width: calc(30px * var(--fs)); height: calc(30px * var(--fs)); flex-shrink: 0; padding: 0; border-radius: 50%; background: var(--save-bg); color: var(--save-text); display: flex; align-items: center; justify-content: center; font-size: calc(14px * var(--fs)); font-weight: 700; line-height: 1; }
+    .page-head { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 12px; background: var(--surface-muted); margin: -1.25rem -1rem 10px; padding: 1.25rem 1rem 10px; }
+    .page-title { margin: 0; font-size: calc(20px * var(--fs)); font-weight: 700; }
+    .day-head { display: flex; justify-content: space-between; align-items: baseline; margin: 14px 4px 8px; }
+    .day-head:first-child { margin-top: 0; }
+    .day-head b { font-size: calc(14px * var(--fs)); font-weight: 700; color: var(--text-mid); }
+    .day-head span { font-size: calc(12px * var(--fs)); color: var(--text-mid); }
+    .li-card { background: var(--surface); border-radius: 18px; padding: 9px 14px 9px 9px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; cursor: pointer; transition: transform 0.1s ease; }
+    .li-card { box-shadow: var(--shadow-low); }
+    .li-card:active { transform: scale(0.98); }
+    .li-card:has(.log-badge.feed) { border-top: 5px solid var(--feed-bg); }
+    .li-card:has(.log-badge.sleep) { border-top: 5px solid var(--sleep-bg); }
+    .li-body { flex: 1; min-width: 0; }
+    .li-main { font-size: calc(15px * var(--fs)); font-weight: 700; color: var(--text-mid); }
+    .li-sub { font-size: calc(12px * var(--fs)); color: var(--text-mid); }
+    .li-pill { font-size: calc(13px * var(--fs)); font-weight: 700; border-radius: 12px; padding: 4px 10px; white-space: nowrap; }
+    .li-pill.blank { background: transparent; color: var(--feed-ink); border: 1.5px dashed var(--feed-ink); padding: 2.5px 9px; }
+    .tl-block.feed.blank { outline: 2px dashed var(--feed-text); outline-offset: -3px; }
+    .oz-stepper { display: flex; align-items: center; gap: 10px; }
+    .oz-step { width: calc(54px * var(--fs)); height: calc(54px * var(--fs)); flex-shrink: 0; padding: 0; border-radius: 50%; background: var(--feed-bg); color: var(--feed-text); font-size: calc(28px * var(--fs)); font-weight: 700; line-height: 1; display: flex; align-items: center; justify-content: center; }
+    .oz-step:active { transform: scale(0.94); }
+    .oz-input { flex: 1; min-width: 0; height: calc(64px * var(--fs)); text-align: center; font-size: calc(34px * var(--fs)); font-weight: 700; color: var(--text); border-radius: 20px; padding: 0 8px; -moz-appearance: textfield; }
+    .oz-input::placeholder { color: var(--text-muted); font-weight: 600; }
+    .oz-input::-webkit-outer-spin-button, .oz-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    .oz-sheet-scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 70; }
+    .oz-sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 71; background: var(--surface); border-radius: 26px 26px 0 0; padding: 12px 16px calc(22px + env(safe-area-inset-bottom)); box-shadow: 0 -10px 30px rgba(0,0,0,0.25); max-width: 560px; margin: 0 auto; }
+    .li-pill.feed { background: var(--feed-bg); color: var(--feed-text); }
+    .li-pill.sleep { background: var(--sleep-bg); color: var(--sleep-text); }
+    .tl-wrap { position: relative; display: flex; gap: 44px; }
+    .tl-grid { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; }
+    .tl-line { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--border); }
+    .tl-hour { position: absolute; left: 50%; font-size: calc(10px * var(--fs)); font-weight: 600; color: var(--text-muted); transform: translate(-50%, -50%); background: var(--surface-muted); padding: 0 4px; }
+    .tl-line.day { border-top-color: var(--text-muted); }
+    .tl-hour.day { color: var(--text-mid); font-weight: 700; }
+    .tl-now { position: absolute; left: 0; right: 0; height: 0; border-top: 1.5px dashed var(--title-coral); }
+    .tl-now-label { position: absolute; left: 50%; font-size: calc(10px * var(--fs)); font-weight: 700; color: var(--title-coral); transform: translate(-50%, -50%); background: var(--surface-muted); padding: 0 4px; }
+    .tl-col { position: relative; flex: 1; min-width: 0; }
+    .tl-block { position: absolute; left: 0; right: 0; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; cursor: pointer; transition: transform 0.1s ease; }
+    .tl-block:active { transform: scale(0.97); }
+    .tl-block.feed { background: var(--surface); color: var(--text-secondary); border-top: 5px solid var(--feed-bg); box-shadow: var(--shadow-low); }
+    .tl-block.sleep { background: var(--surface); color: var(--text-secondary); border-top: 5px solid var(--sleep-bg); box-shadow: var(--shadow-low); }
+    .tl-block .tl-main { color: var(--text); }
+    .tl-main { font-size: calc(14px * var(--fs)); font-weight: 700; line-height: 1.15; white-space: nowrap; }
+    .tl-sub { font-size: calc(11px * var(--fs)); font-weight: 500; line-height: 1.15; white-space: nowrap; max-width: 100%; padding: 0 8px; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; }
+    .pattern-card { background: var(--surface); border-radius: 20px; padding: 14px 12px 12px; margin-bottom: 12px; box-shadow: var(--shadow); }
+    .wk { position: relative; }
+    .wk-grid { position: absolute; left: 0; right: 0; top: 18px; }
+    .wk-line { position: absolute; left: 0; right: 0; border-top: 1px solid var(--border); }
+    .wk-tick { position: absolute; left: 0; width: 26px; font-size: calc(9px * var(--fs)); color: var(--text-muted); line-height: 1; }
+    .wk-cols { display: flex; gap: 4px; margin-left: 28px; position: relative; }
+    .wk-col.usual-col { margin-left: 4px; padding-left: 6px; border-left: 1px solid var(--border); }
+    .wk-col { flex: 1; min-width: 0; }
+    .wk-head { text-align: center; font-size: calc(10px * var(--fs)); color: var(--text-mid); height: 18px; line-height: 18px; }
+    .wk-head.today { font-weight: 700; }
+    .wk-head.usual { color: var(--text-muted); }
+    .wk-track { position: relative; }
+    .wk-blk { position: absolute; left: 0; right: 0; border-radius: 7px; background: var(--sleep-bg); }
+    .wk-blk.usual { background: transparent; border: 1.5px dashed var(--text-muted); }
+    .wk-tot { text-align: center; font-size: calc(10px * var(--fs)); font-weight: 700; color: var(--text-mid); margin-top: 4px; }
+    .ud-card { background: var(--surface); border-radius: 20px; padding: 6px 16px; border-top: 6px solid var(--sleep-bg); box-shadow: var(--shadow); }
+    #view-trends .pattern-card { border-top: 6px solid var(--sleep-bg); }
+    #view-trends .trend-card:has(.log-badge.sleep) { border-top: 6px solid var(--sleep-bg); }
+    #view-trends .trend-card:has(.log-badge.feed) { border-top: 6px solid var(--feed-bg); }
+    .ud-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: calc(14px * var(--fs)); }
+    .ud-row:last-child { border-bottom: 0; }
+    .ud-row .k { display: flex; align-items: center; gap: 8px; color: var(--text-mid); }
+    .ud-row .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--sleep-bg); border: 1.5px solid var(--sleep-text); }
+    .ud-row .dot.none { display: none; }
+    .ud-row .dot.wake { background: var(--isaac-badge-bg); border-color: var(--save-text, #3F6B32); }
+    .ud-row .dot.bed { background: var(--feed-bg); border-color: var(--feed-text); }
+    .ud-row .v { font-weight: 700; }
+    .ud-row .v.soft { font-weight: 600; color: var(--text-mid); }
+    .wk-sub { text-align: center; font-size: calc(8px * var(--fs)); color: var(--text-muted); white-space: nowrap; letter-spacing: -0.2px; }
+    .chip { background: var(--sleep-bg); color: var(--sleep-text); border-radius: 12px; padding: 6px 12px; font-size: calc(12px * var(--fs)); font-weight: 600; }
+    .hidden { display: none !important; }
+    .error { font-size: calc(13px * var(--fs)); color: var(--danger); margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+  <div id="gate" class="gate gate-off">
+    <form class="gate-card" onsubmit="return IsaacAuth.submit(event)" autocomplete="on">
+      <div class="gate-emoji">🐣</div>
+      <h1>isaac hq</h1>
+      <label>who's this?</label>
+      <div class="gate-who" id="gate-who">
+        <button type="button" data-v="Natali">Natali</button>
+        <button type="button" data-v="Steve">Steve</button>
+      </div>
+      <label for="gate-pass">passcode</label>
+      <input id="gate-pass" name="password" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go">
+      <p class="gate-msg" id="gate-msg" role="alert"></p>
+      <button type="submit" class="gate-go" id="gate-go">let me in</button>
+    </form>
+  </div>
+
+
+  <div class="container">
+
+    <!-- Dashboard -->
+    <div id="view-dashboard">
+      <div id="dashboard-top-bar" class="fixed-top-bar">
+      <div style="background:var(--surface);border-radius:20px;padding:10px 12px 10px 10px;display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;box-shadow:var(--shadow);">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:38px;height:38px;border-radius:50%;background:var(--isaac-badge-bg);display:flex;align-items:center;justify-content:center;font-size: calc(18px * var(--fs));flex-shrink:0;box-sizing:border-box;">🐣</div>
+          <p style="font-size: calc(24px * var(--fs));font-weight:700;margin:0;color:var(--text-mid);line-height:1;">Isaac HQ</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" id="refresh-btn" class="round-btn refresh-spin" aria-label="Refresh" onclick="loadDashboard()"><span>↻</span></button>
+          <button type="button" class="round-btn" aria-label="Settings" onclick="openSettings(this)">⚙︎</button>
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <div class="stat" onclick="showView('trends')">
+          <div class="log-badge sleep">💤</div>
+          <div style="text-align:left;">
+            <p class="stat-value" id="last24-sleep">—</p>
+            <p class="stat-sub">last 24h</p>
+          </div>
+        </div>
+        <div class="stat" onclick="showView('trends')">
+          <div class="log-badge feed">🍼</div>
+          <div style="text-align:left;">
+            <p class="stat-value" id="last24-oz">—</p>
+            <p class="stat-sub">last 24h</p>
+          </div>
+        </div>
+      </div>
+      <div class="view-switch">
+        <button type="button" id="vs-timeline" class="active" onclick="setHomeView('timeline')">timeline</button>
+        <button type="button" id="vs-list" onclick="setHomeView('list')">list</button>
+      </div>
+      </div>
+      <div id="top-spacer"></div>
+
+      <div id="timeline-wrap">
+      <button id="show-more-btn" class="hidden" style="width:100%;background:transparent;color:var(--text-muted);font-size: calc(20px * var(--fs));letter-spacing:2px;padding:12px 6px;margin-bottom:4px;" onclick="showOlderLogs()">···</button>
+      <div id="today-list"><p style="color:var(--text-muted);font-size: calc(14px * var(--fs));">Loading…</p></div>
+      </div>
+
+      <div id="list-wrap" class="hidden">
+        <div id="list-items"></div>
+      <button id="list-more-btn" class="hidden" style="width:100%;background:transparent;color:var(--text-muted);font-size: calc(20px * var(--fs));letter-spacing:2px;padding:12px 6px;margin-top:4px;" onclick="showOlderLogs()">···</button>
+      </div>
+
+      <div id="dashboard-bottom-bar" class="fixed-bottom-bar">
+        <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;column-gap:12px;">
+          <button id="sleep-btn" class="icon-btn sleep" style="width:100%;" onclick="toggleSleep()">
+            <span id="sleep-btn-label">Sleep</span>
+            <span id="since-sleep-btn-sub" class="btn-sub">—</span>
+          </button>
+          <button class="icon-btn feed" style="width:100%;" onclick="showView('log-feed')">
+            <span>Log Feed</span>
+            <span id="since-feed-btn-sub" class="btn-sub">—</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Log feed -->
+    <div id="view-log-feed" class="hidden">
+      <div class="card has-trash">
+        <button type="button" id="feed-trash-btn" class="trash-btn hidden" aria-label="Delete entry" onclick="askDelete('feed')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v5M14 11v5"/></svg></button>
+        <p id="feed-form-title" style="font-size: calc(16px * var(--fs));font-weight:500;margin:0 0 4px;">Log Feed</p>
+        <p id="feed-form-subtitle" style="font-size: calc(13px * var(--fs));color:var(--text-mid);margin:0 0 16px;">Type and brand carried over from your last feed</p>
+
+        <label>Time</label>
+        <input type="datetime-local" id="feed-datetime" class="desktop-time" style="margin-bottom:16px;">
+        <div class="touch-time">
+          <button type="button" class="time-trigger" id="feed-time-display" onclick="openPicker('feed')" style="margin-bottom:16px;">Today</button>
+          <input type="hidden" id="feed-date">
+          <input type="hidden" id="feed-time-only">
+        </div>
+
+        <label>Type</label>
+        <div class="toggle-row feed-accent" style="grid-template-columns:repeat(3,1fr);" id="feed-type-toggle">
+          <button data-val="breast" onclick="selectFeedType('breast')">Breast</button>
+          <button data-val="bottle" onclick="selectFeedType('bottle')">Bottle</button>
+          <button data-val="combo" onclick="selectFeedType('combo')">Combo</button>
+        </div>
+
+        <div id="breast-fields" class="hidden" style="margin-bottom:16px;">
+          <label>Duration (Minutes)</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div><label style="font-size: calc(12px * var(--fs));">Left</label><input type="number" inputmode="numeric" id="duration-left"></div>
+            <div><label style="font-size: calc(12px * var(--fs));">Right</label><input type="number" inputmode="numeric" id="duration-right"></div>
+          </div>
+        </div>
+
+        <div id="bottle-fields" class="hidden" style="margin-bottom:16px;">
+          <label>Source</label>
+          <div class="toggle-row feed-accent" style="grid-template-columns:1fr 1fr;" id="source-toggle">
+            <button data-val="breastmilk" onclick="selectSource('breastmilk')">Breastmilk</button>
+            <button data-val="formula" onclick="selectSource('formula')">Formula</button>
+          </div>
+
+          <div id="formula-brand-fields" class="hidden">
+            <label>Formula Brand</label>
+            <div class="toggle-row feed-accent" style="grid-template-columns:1fr;margin-bottom:16px;" id="formula-brand-toggle">
+              <button data-val="Similac 360" onclick="selectFormulaBrand('Similac 360')">Similac 360</button>
+              <button data-val="Enfamil" onclick="selectFormulaBrand('Enfamil')">Enfamil</button>
+              <button data-val="Kirkland ProCare" onclick="selectFormulaBrand('Kirkland ProCare')">Kirkland ProCare</button>
+            </div>
+          </div>
+
+          <label>Amount (oz)</label>
+          <div class="oz-stepper">
+            <button type="button" class="oz-step" aria-label="Less" onclick="ozStep('amount-oz', -0.5)">−</button>
+            <input type="number" step="0.25" min="0" inputmode="decimal" id="amount-oz" class="oz-input" placeholder="—">
+            <button type="button" class="oz-step" aria-label="More" onclick="ozStep('amount-oz', 0.5)">+</button>
+          </div>
+          <p style="font-size: calc(12px * var(--fs));color:var(--text-muted);margin:6px 0 0;text-align:center;">tap + or − to start at 4oz, or tap the number to type. leave blank to add it later.</p>
+        </div>
+
+        <p id="feed-error" class="error hidden"></p>
+        <button type="button" id="feed-save-btn" style="width:100%;font-weight:500;margin-bottom:8px;background:var(--save-bg);color:var(--save-text);" onclick="saveFeed()">Save</button>
+        <button style="width:100%;font-weight:500;color:var(--text-mid);" onclick="showView('dashboard')">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Log sleep -->
+    <div id="view-log-sleep" class="hidden">
+      <div class="card has-trash">
+        <button type="button" id="sleep-trash-btn" class="trash-btn hidden" aria-label="Delete entry" onclick="askDelete('sleep')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M6 6l1 14h10l1-14"/><path d="M10 11v5M14 11v5"/></svg></button>
+        <p id="sleep-form-title" style="font-size: calc(16px * var(--fs));font-weight:500;margin:0 0 4px;">Log Sleep</p>
+        <p id="sleep-form-subtitle" style="font-size: calc(13px * var(--fs));color:var(--text-mid);margin:0 0 16px;">Add a nap you forgot to track</p>
+
+        <label>Fell asleep</label>
+        <input type="datetime-local" id="sleepstart-datetime" class="desktop-time" oninput="updateSleepDuration()" style="margin-bottom:16px;">
+        <div class="touch-time">
+          <button type="button" class="time-trigger" id="sleepstart-time-display" onclick="openPicker('sleepstart')" style="margin-bottom:16px;">Today</button>
+          <input type="hidden" id="sleepstart-date">
+          <input type="hidden" id="sleepstart-time-only">
+        </div>
+
+        <div id="sleep-end-wrap">
+          <label>Woke up</label>
+          <input type="datetime-local" id="sleepend-datetime" class="desktop-time" oninput="updateSleepDuration()" style="margin-bottom:16px;">
+          <div class="touch-time">
+            <button type="button" class="time-trigger" id="sleepend-time-display" onclick="openPicker('sleepend')" style="margin-bottom:16px;">Today</button>
+            <input type="hidden" id="sleepend-date">
+            <input type="hidden" id="sleepend-time-only">
+          </div>
+        </div>
+
+        <div class="toggle-row sleep-accent" style="grid-template-columns:1fr;">
+          <button type="button" id="sleep-ongoing-btn" onclick="setSleepOngoing(!sleepOngoing)">Still sleeping</button>
+        </div>
+
+        <p id="sleep-duration" style="text-align:center;font-size: calc(14px * var(--fs));font-weight:700;color:var(--text-mid);margin:0 0 12px;min-height:20px;"></p>
+
+        <p id="sleep-error" class="error hidden"></p>
+        <button type="button" id="sleep-save-btn" style="width:100%;font-weight:500;margin-bottom:8px;background:var(--save-bg);color:var(--save-text);" onclick="saveSleep()">Save</button>
+        <button style="width:100%;font-weight:500;color:var(--text-mid);" onclick="showView('dashboard')">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Trends -->
+    <div id="view-trends" class="hidden">
+      <div class="page-head">
+        <button type="button" class="round-btn" aria-label="Back" onclick="showView('dashboard')">←</button>
+        <p class="page-title" style="flex:1;">Trends</p>
+        <button type="button" class="round-btn" aria-label="Settings" onclick="openSettings(this)">⚙︎</button>
+      </div>
+
+      <p style="font-size: calc(13px * var(--fs));color:var(--text-mid);font-weight:600;margin-bottom:8px;">Today</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;">
+        <div class="trend-card static">
+          <div class="log-badge sleep">💤</div>
+          <div style="text-align:left;">
+            <p class="stat-value" id="trend-today-sleep">—</p>
+            <p class="stat-sub">sleep</p>
+          </div>
+        </div>
+        <div class="trend-card static">
+          <div class="log-badge feed">🍼</div>
+          <div style="text-align:left;">
+            <p class="stat-value" id="trend-today-oz">—</p>
+            <p class="stat-sub">eaten</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size: calc(13px * var(--fs));color:var(--text-mid);font-weight:600;margin-bottom:8px;">Sleep pattern</p>
+      <div class="pattern-card">
+        <div id="pattern-rows"></div>
+      </div>
+
+      <p style="font-size: calc(13px * var(--fs));color:var(--text-mid);font-weight:600;margin-bottom:8px;">Usual day</p>
+      <div id="usual-day" style="margin-bottom:16px;"></div>
+
+      <div id="trends-list"></div>
+      <button id="trends-show-more-btn" class="hidden" style="width:100%;background:transparent;color:var(--text-muted);font-size: calc(20px * var(--fs));letter-spacing:2px;padding:12px 6px;margin-top:8px;margin-bottom:16px;" onclick="showMoreTrendDays()">···</button>
+
+    </div>
+
+  </div>
+
+  <div id="settings-wrap" class="hidden">
+    <div class="settings-scrim" onclick="closeSettings()"></div>
+    <div id="settings-pop" class="settings-pop" role="dialog" aria-label="Settings">
+      <p class="srow-label">text size</p>
+      <div class="settings-seg" id="seg-size">
+        <button type="button" data-v="1" style="font-size:12px;" onclick="setFontScale(1)">a</button>
+        <button type="button" data-v="1.2" style="font-size:16px;" onclick="setFontScale(1.2)">a</button>
+        <button type="button" data-v="1.35" style="font-size:20px;" onclick="setFontScale(1.35)">a</button>
+      </div>
+      <p class="srow-label">logging as</p>
+      <div class="settings-seg" id="seg-who">
+        <button type="button" data-v="Natali" onclick="IsaacAuth.setWho('Natali');paintSettings()">Natali</button>
+        <button type="button" data-v="Steve" onclick="IsaacAuth.setWho('Steve');paintSettings()">Steve</button>
+      </div>
+      <p class="srow-label">mode</p>
+      <div class="settings-seg" id="seg-mode">
+        <button type="button" data-v="light" onclick="setTheme('light')" aria-label="Day" style="font-size:calc(17px * var(--fs));">☀️</button>
+        <button type="button" data-v="dark" onclick="setTheme('dark')" aria-label="Night" style="font-size:calc(17px * var(--fs));">🌙</button>
+      </div>
+      <button type="button" class="settings-forget" onclick="IsaacAuth.forget()">forget passcode on this phone</button>
+    </div>
+  </div>
+
+  <div id="oz-sheet-wrap" class="hidden">
+    <div class="oz-sheet-scrim" onclick="closeOzSheet()"></div>
+    <div class="oz-sheet" role="dialog" aria-label="How many ounces">
+      <p style="font-size: calc(17px * var(--fs));font-weight:700;margin:0;color:var(--text-mid);">how many oz?</p>
+      <p id="oz-sheet-sub" style="font-size: calc(13px * var(--fs));color:var(--text-muted);margin:2px 0 14px;"></p>
+      <div class="oz-stepper" style="margin-bottom:14px;">
+        <button type="button" class="oz-step" aria-label="Less" onclick="ozStep('oz-sheet-input', -0.5)">−</button>
+        <input type="number" step="0.25" min="0" inputmode="decimal" id="oz-sheet-input" class="oz-input" placeholder="—">
+        <button type="button" class="oz-step" aria-label="More" onclick="ozStep('oz-sheet-input', 0.5)">+</button>
+      </div>
+      <button type="button" id="oz-sheet-done" style="width:100%;font-weight:600;margin-bottom:8px;background:var(--save-bg);color:var(--save-text);" onclick="saveQuickOz()">Done</button>
+      <div style="display:flex;gap:8px;">
+        <button type="button" style="flex:1;font-weight:500;color:var(--text-mid);" onclick="closeOzSheet()">Cancel</button>
+        <button type="button" style="flex:1;font-weight:500;color:var(--text-mid);" onclick="ozFullEdit()">Full edit</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="delete-overlay" class="confirm-overlay hidden">
+    <div class="card" style="width:100%;max-width:320px;text-align:center;">
+      <p style="font-size: calc(16px * var(--fs));font-weight:600;margin:0 0 4px;">Delete this entry?</p>
+      <p style="font-size: calc(13px * var(--fs));color:var(--text-mid);margin:0 0 16px;">This can't be undone.</p>
+      <button type="button" style="width:100%;font-weight:500;margin-bottom:8px;background:var(--save-bg);color:var(--save-text);" onclick="closeDeleteConfirm()">Keep it</button>
+      <button type="button" id="delete-confirm-btn" class="delete-btn" style="width:100%;font-weight:500;" onclick="confirmDelete()">Delete</button>
+    </div>
+  </div>
+
+  <div id="picker-overlay" class="picker-overlay hidden" style="position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:50;">
+    <div style="background:var(--surface);width:100%;border-radius:20px 20px 0 0;padding:12px 16px 24px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <button type="button" onclick="closePicker(false)" style="background:none;color:var(--text-muted);font-weight:500;padding:12px 10px;">Cancel</button>
+        <button type="button" id="picker-done-btn" onclick="closePicker(true)" style="background:none;font-weight:700;padding:12px 10px;">Done</button>
+      </div>
+      <div style="position:relative;height:180px;">
+        <div style="position:absolute;top:72px;left:0;right:0;height:36px;background:var(--surface-muted);border-radius:12px;pointer-events:none;"></div>
+        <div style="display:flex;height:180px;">
+          <div class="picker-col" id="picker-day" style="flex:2;"></div>
+          <div class="picker-col" id="picker-hour" style="flex:1;"></div>
+          <div class="picker-col" id="picker-min" style="flex:1;"></div>
+          <div class="picker-col" id="picker-ampm" style="flex:1;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style id="gate-css">
+    .settings-forget { display:block; width:100%; margin-top:12px; background:transparent; color:var(--text-muted); font-size: calc(12px * var(--fs)); font-weight:600; padding:8px 0 2px; text-align:center; }
+    .gate { position: fixed; inset: 0; z-index: 500; background: var(--surface-muted); display:flex; align-items:center; justify-content:center; padding: 20px; overflow:auto; }
+    .gate.gate-off { display:none; }
+    .gate-card { width:100%; max-width:360px; background: var(--surface); border-radius: 24px; border-top: 7px solid var(--feed-bg); box-shadow: var(--shadow); padding: 26px 22px 22px; text-align:center; }
+    .gate-emoji { font-size: 40px; line-height:1; }
+    .gate-card h1 { margin: 8px 0 18px; font-size: 24px; color: var(--text); }
+    .gate-card label { display:block; text-align:left; font-size: 13px; font-weight:700; color: var(--text-muted); margin: 0 0 6px; }
+    .gate-who { display:flex; gap:8px; margin-bottom:16px; }
+    .gate-who button { flex:1; padding: 14px 0; border-radius: 14px; background: var(--surface-muted); color: var(--text-mid); font-size: 16px; font-weight:700; border: 2px solid transparent; }
+    .gate-who button.active { background: var(--save-bg); color: var(--save-text); }
+    .gate-card input { width:100%; box-sizing:border-box; padding: 14px; border-radius: 14px; border: 2px solid var(--border); background: var(--surface-muted); color: var(--text); font-size: 16px; font-family: inherit; text-transform:none; }
+    .gate-msg { min-height: 20px; margin: 10px 0 8px; font-size: 14px; font-weight:600; color: var(--danger); }
+    .gate-go { width:100%; padding: 15px; border-radius: 16px; background: var(--save-bg); color: var(--save-text); font-size: 17px; font-weight:700; }
+    .gate-go[disabled] { opacity:.6; }
+  </style>
+
+  <script src="api.js"></script>
+  <script>
+    var THEME_STORAGE_KEY = 'isaac-hq-theme';
+
+    function isCurrentlyDark() {
+      var saved = document.documentElement.getAttribute('data-theme');
+      if (saved) return saved === 'dark';
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+
+    function updateThemeToggleIcon() {}  // kept so older calls stay harmless
+
+    function setTheme(mode) {
+      document.documentElement.setAttribute('data-theme', mode);
+      try { localStorage.setItem(THEME_STORAGE_KEY, mode); } catch (e) {}
+      paintSettings();
+    }
+
+    var FONT_SCALES = [1, 1.2, 1.35];
+    var FONT_STORAGE_KEY = 'isaac-hq-fontscale';
+
+    function applyFontScale(v) {
+      document.documentElement.style.setProperty('--fs', String(v));
+      if (typeof syncTopSpacer === 'function') syncTopSpacer();
+    }
+
+    function currentScale() {
+      return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fs')) || 1.2;
+    }
+
+    function setFontScale(v) {
+      applyFontScale(v);
+      try { localStorage.setItem(FONT_STORAGE_KEY, String(v)); } catch (e) {}
+      paintSettings();
+    }
+
+    function paintSettings() {
+      var sc = currentScale(), dark = isCurrentlyDark();
+      document.querySelectorAll('#seg-size button').forEach(function (b) { b.classList.toggle('active', parseFloat(b.dataset.v) === sc); });
+      document.querySelectorAll('#seg-who button').forEach(function (b) { b.classList.toggle('active', b.dataset.v === IsaacAuth.who()); });
+      document.querySelectorAll('#seg-mode button').forEach(function (b) { b.classList.toggle('active', (b.dataset.v === 'dark') === dark); });
+    }
+
+    function openSettings(btn) {
+      paintSettings();
+      var pop = document.getElementById('settings-pop');
+      document.getElementById('settings-wrap').classList.remove('hidden');
+      var r = btn.getBoundingClientRect();
+      pop.style.top = Math.round(r.bottom + 8) + 'px';
+      pop.style.right = Math.max(12, Math.round(window.innerWidth - r.right)) + 'px';
+    }
+
+    function closeSettings() {
+      document.getElementById('settings-wrap').classList.add('hidden');
+    }
+
+    (function initFontScale() {
+      try {
+        var v = parseFloat(localStorage.getItem(FONT_STORAGE_KEY));
+        if (FONT_SCALES.indexOf(v) !== -1) document.documentElement.style.setProperty('--fs', String(v));
+      } catch (e) {}
+    })();
+
+    (function initTheme() {
+      var saved = null;
+      try { saved = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) {}
+      if (saved === 'light' || saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+      updateThemeToggleIcon();
+    })();
+
+    var USER_NAMES = {"natali.ryzhikova@gmail.com":"Natali","whoanatali@gmail.com":"Natali","redsocker42@gmail.com":"Steve","Natali":"Natali","Steve":"Steve"};
+    var events = [];
+    var feedType = null, sourceType = null, formulaBrand = null;
+    var pendingEditEvent = null;
+    var currentEditRow = null, currentEditLoggedBy = null, currentEditOrigTs = null;
+    var eventLookup = {};
+
+    function editEvent(rowNum) {
+      var e = eventLookup[rowNum];
+      if (!e) return;
+      if (e._row < 0) { alert('Still saving this one, try again in a moment.'); return; }
+      pendingEditEvent = e;
+      showView(e.type === 'sleep' ? 'log-sleep' : 'log-feed');
+    }
+
+    function nowLocalParts() {
+      var d = new Date();
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      var iso = d.toISOString();
+      return { date: iso.slice(0, 10), time: iso.slice(11, 16) };
+    }
+
+    function tsToParts(ts) {
+      var d = new Date(ts);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      var iso = d.toISOString();
+      return { date: iso.slice(0, 10), time: iso.slice(11, 16) };
+    }
+
+    function partsToIso(dateStr, timeStr) {
+      return new Date(dateStr + 'T' + timeStr).toISOString();
+    }
+
+    function isTouchDevice() {
+      return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    }
+    document.body.classList.add(isTouchDevice() ? 'is-touch' : 'is-desktop');
+
+    function formatDayLabel(d) {
+      var wd = d.toLocaleDateString([], { weekday: 'short' });
+      var md = d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+      var thisYear = new Date().getFullYear();
+      return wd + ' ' + md + (d.getFullYear() !== thisYear ? ' ' + d.getFullYear() : '');
+    }
+
+    function formatTimeDisplay(dateStr, timeStr) {
+      if (!dateStr || !timeStr) return 'Today';
+      var target = new Date(dateStr + 'T00:00:00');
+      var today = new Date(); today.setHours(0, 0, 0, 0);
+      var diffDays = Math.round((today - target) / 86400000);
+      var dayLabel;
+      if (diffDays === 0) dayLabel = 'Today';
+      else if (diffDays === 1) dayLabel = 'Yesterday';
+      else if (diffDays === -1) dayLabel = 'Tomorrow';
+      else dayLabel = formatDayLabel(target);
+      var timeLabel = clockStr(new Date(dateStr + 'T' + timeStr));
+      return dayLabel + ', ' + timeLabel;
+    }
+
+    function updateTimeDisplay(target) {
+      var dateVal = document.getElementById(target + '-date').value;
+      var timeVal = document.getElementById(target + '-time-only').value;
+      document.getElementById(target + '-time-display').textContent = formatTimeDisplay(dateVal, timeVal);
+    }
+
+    var PICKER_DAYS_BACK = 100;
+    var PICKER_DAYS_FORWARD = 100;
+    var pickerTarget = null;
+    var pickerDayOpts = [];
+
+    function buildDayOptions() {
+      var opts = [];
+      for (var i = PICKER_DAYS_BACK; i >= -PICKER_DAYS_FORWARD; i--) {
+        var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - i);
+        var label;
+        if (i === 0) label = 'Today';
+        else if (i === 1) label = 'Yesterday';
+        else if (i === -1) label = 'Tomorrow';
+        else label = formatDayLabel(d);
+        opts.push({ label: label, key: d.toDateString() });
+      }
+      return opts;
+    }
+
+    var LOOP_COPIES = 9;
+
+    function renderPickerColumn(id, items, selectedIndex, loop) {
+      var col = document.getElementById(id);
+      var displayItems = items;
+      var offset = 0;
+
+      if (loop) {
+        var repeated = [];
+        for (var c = 0; c < LOOP_COPIES; c++) repeated = repeated.concat(items);
+        displayItems = repeated;
+        offset = Math.floor(LOOP_COPIES / 2) * items.length;
+      }
+
+      var html = '<div style="height:72px;"></div>';
+      displayItems.forEach(function (item) { html += '<div class="picker-item">' + item + '</div>'; });
+      html += '<div style="height:72px;"></div>';
+      col.innerHTML = html;
+
+      col.dataset.loop = loop ? '1' : '0';
+      col.dataset.itemCount = items.length;
+      var initialRaw = offset + selectedIndex;
+      col.scrollTop = initialRaw * 36;
+      updatePickerSelection(col);
+      col.onscroll = function () {
+        updatePickerSelection(col);
+        clearTimeout(col._snapTimer);
+        col._snapTimer = setTimeout(function () { snapPickerColumn(col); }, 120);
+      };
+    }
+
+    function updatePickerSelection(col) {
+      var idx = Math.max(0, Math.round(col.scrollTop / 36));
+      var items = col.querySelectorAll('.picker-item');
+      items.forEach(function (it, i) { it.classList.toggle('selected', i === idx); });
+      if (col.dataset.loop === '1') {
+        var count = parseInt(col.dataset.itemCount, 10);
+        col.dataset.selected = ((idx % count) + count) % count;
+        col.dataset.rawIndex = idx;
+      } else {
+        col.dataset.selected = idx;
+      }
+    }
+
+    function snapPickerColumn(col) {
+      var idx = Math.max(0, Math.round(col.scrollTop / 36));
+      col.scrollTo({ top: idx * 36, behavior: 'smooth' });
+      updatePickerSelection(col);
+
+      if (col.dataset.loop === '1') {
+        var count = parseInt(col.dataset.itemCount, 10);
+        var middleStart = Math.floor(LOOP_COPIES / 2) * count;
+        var copyIndex = Math.floor(idx / count);
+        // If the scroll has drifted into the first or last copy of the loop,
+        // silently re-center to the same logical value in the middle copy
+        // once the smooth snap above has settled, so the user never sees a jump.
+        if (copyIndex <= 0 || copyIndex >= LOOP_COPIES - 1) {
+          clearTimeout(col._loopTimer);
+          col._loopTimer = setTimeout(function () {
+            var logical = ((idx % count) + count) % count;
+            col.scrollTop = (middleStart + logical) * 36;
+            updatePickerSelection(col);
+          }, 300);
+        }
+      }
+    }
+
+    function openPicker(target) {
+      pickerTarget = target;
+      pickerDayOpts = buildDayOptions();
+
+      var dayLabels = pickerDayOpts.map(function (o) { return o.label; });
+      var hourLabels = []; for (var h = 1; h <= 12; h++) hourLabels.push(String(h));
+      var minLabels = []; for (var m = 0; m < 60; m++) minLabels.push(m < 10 ? '0' + m : '' + m);
+      var ampmLabels = ['AM', 'PM'];
+
+      var dateEl = document.getElementById(target + '-date');
+      var timeEl = document.getElementById(target + '-time-only');
+      var dayIndex = PICKER_DAYS_BACK, hourIndex = 0, minIndex = 0, ampmIndex = 0;
+
+      if (dateEl.value) {
+        var key = new Date(dateEl.value + 'T00:00:00').toDateString();
+        var found = pickerDayOpts.findIndex(function (o) { return o.key === key; });
+        if (found >= 0) dayIndex = found;
+      }
+      if (timeEl.value) {
+        var parts = timeEl.value.split(':');
+        var h24 = parseInt(parts[0], 10), min = parseInt(parts[1], 10);
+        ampmIndex = h24 >= 12 ? 1 : 0;
+        var h12 = h24 % 12; if (h12 === 0) h12 = 12;
+        hourIndex = h12 - 1;
+        minIndex = min;
+      }
+
+      var doneBtn = document.getElementById('picker-done-btn');
+      doneBtn.style.color = target.indexOf('sleep') === 0 ? 'var(--sleep-ink)' : 'var(--feed-ink)';
+
+      document.getElementById('picker-overlay').classList.remove('hidden');
+
+      requestAnimationFrame(function () {
+        renderPickerColumn('picker-day', dayLabels, dayIndex, false);
+        renderPickerColumn('picker-hour', hourLabels, hourIndex, true);
+        renderPickerColumn('picker-min', minLabels, minIndex, true);
+        renderPickerColumn('picker-ampm', ampmLabels, ampmIndex, true);
+      });
+    }
+
+    function closePicker(apply) {
+      document.getElementById('picker-overlay').classList.add('hidden');
+      if (!apply || !pickerTarget) { pickerTarget = null; return; }
+
+      var dayIdx = parseInt(document.getElementById('picker-day').dataset.selected, 10);
+      var hourIdx = parseInt(document.getElementById('picker-hour').dataset.selected, 10);
+      var minIdx = parseInt(document.getElementById('picker-min').dataset.selected, 10);
+      var ampmIdx = parseInt(document.getElementById('picker-ampm').dataset.selected, 10);
+
+      var day = pickerDayOpts[dayIdx];
+      var hour12 = hourIdx + 1;
+      var isPM = ampmIdx === 1;
+      var hour24 = isPM ? (hour12 === 12 ? 12 : hour12 + 12) : (hour12 === 12 ? 0 : hour12);
+      var hh = hour24 < 10 ? '0' + hour24 : '' + hour24;
+      var mm = minIdx < 10 ? '0' + minIdx : '' + minIdx;
+
+      var d = new Date(day.key);
+      var dateVal = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+
+      var target = pickerTarget;
+      document.getElementById(target + '-date').value = dateVal;
+      document.getElementById(target + '-time-only').value = hh + ':' + mm;
+      updateTimeDisplay(target);
+      if (target.indexOf('sleep') === 0) updateSleepDuration();
+      pickerTarget = null;
+    }
+
+    function getFormTimestamp(target) {
+      if (document.body.classList.contains('is-desktop')) {
+        return new Date(document.getElementById(target + '-datetime').value).toISOString();
+      }
+      return partsToIso(document.getElementById(target + '-date').value, document.getElementById(target + '-time-only').value);
+    }
+
+    function showView(name) {
+      ['dashboard', 'log-feed', 'log-sleep', 'trends'].forEach(function (v) {
+        document.getElementById('view-' + v).classList.toggle('hidden', v !== name);
+      });
+      if (name === 'log-feed') openFeedForm();
+      if (name === 'log-sleep') openSleepForm();
+      if (name === 'trends') { renderTrends(); refreshForTrends(); }
+      if (name === 'dashboard') { loadDashboard(); scrollHome(); } else window.scrollTo(0, 0);
+      var shown = document.getElementById('view-' + name);
+      shown.classList.remove('view-fade');
+      void shown.offsetWidth;   // restart the animation
+      shown.classList.add('view-fade');
+    }
+
+    function timeSince(ts) {
+      if (!ts) return '—';
+      var diff = Date.now() - new Date(ts).getTime();
+      var mins = Math.max(0, Math.floor(diff / 60000));
+      var h = Math.floor(mins / 60), m = mins % 60;
+      return h === 0 ? m + 'm' : h + 'h ' + m + 'm';
+    }
+
+    function fmtDur(mins) {
+      mins = Math.max(0, Math.round(mins));
+      var h = Math.floor(mins / 60), m = mins % 60;
+      if (h === 0) return m + 'm';
+      return m === 0 ? h + 'h' : h + 'h ' + m + 'm';
+    }
+
+    // "9:00am", no space before am/pm, matching "30m" and "5oz".
+    function clockStr(d) {
+      return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s+(?=[ap]m)/i, '');
+    }
+
+    function fmtClock(ms) {
+      return clockStr(new Date(ms));
+    }
+
+    function startOfDayMs(ms) {
+      var d = new Date(ms); d.setHours(0, 0, 0, 0); return d.getTime();
+    }
+
+    var HOUR_MS = 3600000, DAY_MS = 86400000;
+    var PX_PER_HOUR = 44, BLOCK_MIN_H = 44, TL_OFFSET = 10;
+
+    function tsMs(ts) { return new Date(ts).getTime(); }
+    function sleepEndMs(e) { return e.end_timestamp ? tsMs(e.end_timestamp) : Date.now(); }
+
+    function currentOpenSleep() {
+      return events.find(function (e) { return e.type === 'sleep' && !e.end_timestamp; }) || null;
+    }
+
+    function lastSleepEndMs() {
+      var ends = events.filter(function (e) { return e.type === 'sleep' && e.end_timestamp; })
+        .map(function (e) { return tsMs(e.end_timestamp); });
+      return ends.length ? Math.max.apply(null, ends) : null;
+    }
+
+    var lastFeedTs = null;
+
+    function updateSinceLabels() {
+      document.getElementById('since-feed-btn-sub').textContent = lastFeedTs ? timeSince(lastFeedTs) + ' ago' : '—';
+      var open = currentOpenSleep();
+      var btn = document.getElementById('sleep-btn');
+      var label = document.getElementById('sleep-btn-label');
+      var sub = document.getElementById('since-sleep-btn-sub');
+      if (btn.dataset.busy === '1') return;
+      btn.classList.toggle('live', !!open);
+      if (open) {
+        label.textContent = 'Wake up';
+        sub.textContent = 'Asleep ' + timeSince(open.timestamp);
+      } else {
+        label.textContent = 'Sleep';
+        var le = lastSleepEndMs();
+        sub.textContent = le ? 'Awake ' + timeSince(le) : '—';
+      }
+    }
+
+    if (!window.__sinceInterval) {
+      window.__sinceInterval = setInterval(function () {
+        updateSinceLabels();
+        if (!document.getElementById('view-dashboard').classList.contains('hidden') && events.length) renderToday();
+      }, 30000);
+    }
+
+    function feedMainLabel(e) {
+      var oz = parseFloat(e.amount_oz);
+      var min = (Number(e.duration_left) || 0) + (Number(e.duration_right) || 0);
+      if (e.subtype === 'breast') return min + 'm';
+      if (e.subtype === 'combo') return (isNaN(oz) ? '' : oz + 'oz') + (min ? ' · ' + min + 'm' : '');
+      return isNaN(oz) ? 'add oz' : oz + 'oz';
+    }
+
+    // A bottle or combo feed logged without ounces (to be filled in later).
+    function isBlankOz(e) {
+      return e && e.type === 'feeding' && e.subtype !== 'breast' && isNaN(parseFloat(e.amount_oz));
+    }
+
+    function feedSourceLabel(e) {
+      if (e.subtype === 'breast') return 'Breast';
+      var src = String(e.source || '').toLowerCase();
+      if (src === 'formula') return e.formula_brand || 'Formula';
+      if (src === 'breastmilk') return 'Breastmilk';
+      return capitalize(e.source) || 'Bottle';
+    }
+
+    function layoutColumn(blocks) {
+      blocks.sort(function (a, b) { return a.top - b.top; });
+      var lastBottom = -1000, maxBottom = 0;
+      blocks.forEach(function (b) {
+        if (b.top < lastBottom + 3) b.top = lastBottom + 3;
+        lastBottom = b.top + b.height;
+        if (lastBottom > maxBottom) maxBottom = lastBottom;
+      });
+      return maxBottom;
+    }
+
+    var RECENT_ROWS = 60;
+    var olderEventsCache = null;
+    var extraDays = 0;
+    var lastTimelineTopMs = 0;
+
+    function ceilHourMs(ms) {
+      var d = new Date(ms);
+      if (d.getMinutes() || d.getSeconds() || d.getMilliseconds()) d.setHours(d.getHours() + 1);
+      d.setMinutes(0, 0, 0);
+      return d.getTime();
+    }
+
+    function baseHoursBack() {
+      // Taller than the screen, so the "···" starts just above the fold.
+      return Math.max(14, Math.ceil(window.innerHeight / PX_PER_HOUR) + 2);
+    }
+
+    function dayChipLabel(ms) {
+      var todayStart = startOfDayMs(Date.now());
+      if (startOfDayMs(ms) === todayStart) return 'Today';
+      return new Date(ms).toLocaleDateString([], { weekday: 'short' });
+    }
+
+    function buildTimeline(evs, hoursBack) {
+      var now = Date.now();
+      var maxEnd = now;
+      evs.forEach(function (e) { if (e.type === 'feeding') maxEnd = Math.max(maxEnd, tsMs(e.timestamp) + HOUR_MS); });
+      var bottomMs = Math.max(now + 10 * 60000, maxEnd);
+      var topMs = bottomMs - hoursBack * HOUR_MS;
+      lastTimelineTopMs = topMs;
+
+      function yOf(ms) { return (ms - topMs) / HOUR_MS * PX_PER_HOUR + TL_OFFSET; }
+
+      var sleeps = [], feeds = [];
+      evs.forEach(function (e) {
+        var s = tsMs(e.timestamp);
+        if (e.type === 'sleep') {
+          var en = sleepEndMs(e);
+          if (en <= topMs || s >= bottomMs) return;
+          sleeps.push({ e: e, s: Math.max(s, topMs), en: Math.min(en, bottomMs) });
+        } else if (e.type === 'feeding') {
+          if (s < topMs || s >= bottomMs) return;
+          feeds.push({ e: e, s: s, en: Math.min(s + HOUR_MS, bottomMs) });
+        }
+      });
+
+      var sleepBlocks = sleeps.map(function (x) {
+        var fullMins = (sleepEndMs(x.e) - tsMs(x.e.timestamp)) / 60000;
+        var h = Math.max((x.en - x.s) / HOUR_MS * PX_PER_HOUR, BLOCK_MIN_H) - 2;
+        var open = !x.e.end_timestamp;
+        var span = fmtClock(tsMs(x.e.timestamp)) + ' – ' + (open ? 'now' : fmtClock(tsMs(x.e.end_timestamp)));
+        return { top: yOf(x.s) + 1, height: h, cls: 'sleep' + (open ? ' live' : ''), row: x.e._row, main: fmtDur(fullMins), sub: span };
+      });
+      var feedBlocks = feeds.map(function (x) {
+        return { top: yOf(x.s) + 1, height: BLOCK_MIN_H - 2, cls: 'feed' + (isBlankOz(x.e) && x.e.subtype === 'bottle' ? ' blank' : ''), blank: isBlankOz(x.e), row: x.e._row, main: fmtClock(x.s), sub: feedMainLabel(x.e) + ' · ' + feedSourceLabel(x.e) };
+      });
+      var hSleep = layoutColumn(sleepBlocks), hFeed = layoutColumn(feedBlocks);
+      var totalH = Math.max(hSleep, hFeed, (bottomMs - topMs) / HOUR_MS * PX_PER_HOUR + TL_OFFSET) + 6;
+
+      function colHtml(blocks, tappable) {
+        var tap = tappable ? ' onclick="tapSleepColumn(event,' + topMs + ')"' : '';
+        return '<div class="tl-col" style="height:' + totalH + 'px;"' + tap + '>' + blocks.map(function (b) {
+          return '<div class="tl-block ' + b.cls + '" onclick="event.stopPropagation();' + (b.blank ? 'quickOz(' : 'editEvent(') + b.row + ')" style="top:' + b.top + 'px;height:' + b.height + 'px;">' +
+            '<span class="tl-main">' + b.main + '</span><span class="tl-sub">' + b.sub + '</span></div>';
+        }).join('') + '</div>';
+      }
+
+      var grid = '';
+      for (var t = ceilHourMs(topMs); t <= bottomMs; t += HOUR_MS) {
+        var y = yOf(t);
+        var d = new Date(t);
+        var hr = d.getHours();
+        var isMidnight = hr === 0;
+        var lab = isMidnight ? dayChipLabel(t) : ((hr % 12 === 0 ? 12 : hr % 12) + (hr >= 12 ? 'p' : 'a'));
+        var nearNow = Math.abs(t - now) < 0.3 * HOUR_MS;
+        grid += '<div class="tl-line' + (isMidnight ? ' day' : '') + '" style="top:' + y + 'px;"></div>' +
+          (nearNow ? '' : '<span class="tl-hour' + (isMidnight ? ' day' : '') + '" style="top:' + y + 'px;">' + lab + '</span>');
+      }
+      var ny = yOf(now);
+      grid += '<div class="tl-now" style="top:' + ny + 'px;"></div><span class="tl-now-label" style="top:' + ny + 'px;">now</span>';
+
+      return '<div class="tl-wrap" style="height:' + totalH + 'px;"><div class="tl-grid">' + grid + '</div>' +
+        colHtml(sleepBlocks, true) + colHtml(feedBlocks, false) + '</div>';
+    }
+
+    function indexEvents(list) {
+      list.forEach(function (e) { eventLookup[e._row] = e; });
+    }
+
+    function sleepMinutesInRange(evs, fromMs, toMs) {
+      var total = 0;
+      evs.forEach(function (e) {
+        if (e.type !== 'sleep') return;
+        var s = Math.max(tsMs(e.timestamp), fromMs), en = Math.min(sleepEndMs(e), toMs);
+        if (en > s) total += (en - s) / 60000;
+      });
+      return total;
+    }
+
+    function usableEvents(list) {
+      return list.filter(function (e) { return e.type === 'sleep' || e.type === 'feeding'; });
+    }
+
+    function timelineSource() {
+      if (!olderEventsCache) return events;
+      var byRow = {};
+      usableEvents(olderEventsCache).forEach(function (e) { byRow[e._row] = e; });
+      events.forEach(function (e) { byRow[e._row] = e; });
+      return Object.keys(byRow).map(function (k) { return byRow[k]; });
+    }
+
+    function isNearBottom() {
+      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 80;
+    }
+
+    function isNearTop() {
+      return window.scrollY < 80;
+    }
+
+    function scrollToBottom() {
+      window.scrollTo(0, document.documentElement.scrollHeight);
+    }
+
+    function scrollToTop() {
+      window.scrollTo(0, 0);
+    }
+
+    // The timeline reads from the bottom up (newest at the bottom); the list
+    // reads from the top down (newest at the top).
+    function scrollHome() {
+      if (homeView === 'timeline') scrollToBottom(); else scrollToTop();
+    }
+
+    function syncTopSpacer() {
+      var bar = document.getElementById('dashboard-top-bar');
+      var spacer = document.getElementById('top-spacer');
+      if (bar && spacer && bar.offsetHeight) spacer.style.height = Math.max(0, bar.offsetHeight - 20 - 18) + 'px';
+    }
+    window.addEventListener('resize', syncTopSpacer);
+    window.addEventListener('load', syncTopSpacer);
+
+    function renderToday() {
+      var src = timelineSource();
+      indexEvents(src);
+      var now = Date.now();
+      document.getElementById('last24-sleep').textContent = fmtDur(sleepMinutesInRange(events, now - DAY_MS, now));
+      var oz = events.filter(function (e) { return e.type === 'feeding' && tsMs(e.timestamp) >= now - DAY_MS; })
+        .reduce(function (sum, e) { var v = parseFloat(e.amount_oz); return sum + (isNaN(v) ? 0 : v); }, 0);
+      document.getElementById('last24-oz').textContent = (Math.round(oz * 100) / 100) + 'oz';
+
+      syncTopSpacer();
+      var stick = homeView === 'timeline' ? isNearBottom() : isNearTop();
+      if (homeView === 'timeline') renderTimelineView(src); else renderListView(src);
+      updateSinceLabels();
+      if (stick) scrollHome();
+    }
+
+    function renderTimelineView(src) {
+      var hoursBack = baseHoursBack() + extraDays * 24;
+      document.getElementById('today-list').innerHTML = buildTimeline(src, hoursBack);
+
+      var earliest = src.length ? Math.min.apply(null, src.map(function (e) { return tsMs(e.timestamp); })) : Infinity;
+      var more = earliest < lastTimelineTopMs || (!olderEventsCache && events.length >= RECENT_ROWS - 2);
+      document.getElementById('show-more-btn').classList.toggle('hidden', !more);
+    }
+
+    // List view: newest first, one card per entry, grouped by day with daily totals.
+    function dayHeadLabel(dayMs) {
+      var todayStart = startOfDayMs(Date.now());
+      if (dayMs === todayStart) return 'Today';
+      if (dayMs === todayStart - DAY_MS) return 'Yesterday';
+      return new Date(dayMs).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    function renderListView(src) {
+      var fromMs = startOfDayMs(Date.now()) - (1 + extraDays) * DAY_MS;
+      var shown = src.filter(function (e) { return tsMs(e.timestamp) >= fromMs; })
+        .sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+      var html = '', lastDay = null;
+      shown.forEach(function (e) {
+        var dayMs = startOfDayMs(tsMs(e.timestamp));
+        if (dayMs !== lastDay) {
+          lastDay = dayMs;
+          var sum = computeDaySummary(dayMs, src);
+          html += '<div class="day-head"><b>' + dayHeadLabel(dayMs) + '</b><span>' + sum.oz + 'oz · ' + fmtDur(sum.sleepMin) + ' sleep</span></div>';
+        }
+        var feed = e.type === 'feeding';
+        var open = !feed && !e.end_timestamp;
+        var main = fmtClock(tsMs(e.timestamp)) + (feed ? '' : ' – ' + (open ? 'now' : fmtClock(tsMs(e.end_timestamp))));
+        var sub = feed ? feedSourceLabel(e) : (open ? 'asleep now' : 'sleep');
+        var pill = feed ? feedMainLabel(e) : fmtDur((sleepEndMs(e) - tsMs(e.timestamp)) / 60000);
+        var cls = feed ? 'feed' : 'sleep';
+        var blank = isBlankOz(e);
+        html += '<div class="li-card" onclick="' + (blank ? 'quickOz(' : 'editEvent(') + e._row + ')">' +
+          '<div class="log-badge ' + cls + '">' + (feed ? '🍼' : '💤') + '</div>' +
+          '<div class="li-body"><div class="li-main">' + main + '</div><div class="li-sub">' + sub + '</div></div>' +
+          '<span class="li-pill ' + (blank && e.subtype === 'bottle' ? 'blank' : cls) + '">' + pill + '</span></div>';
+      });
+      document.getElementById('list-items').innerHTML = html || '<p style="color:var(--text-muted);font-size: calc(14px * var(--fs));">Nothing logged yet.</p>';
+
+      var earliest = src.length ? Math.min.apply(null, src.map(function (e) { return tsMs(e.timestamp); })) : Infinity;
+      var more = earliest < fromMs || (!olderEventsCache && events.length >= RECENT_ROWS - 2);
+      document.getElementById('list-more-btn').classList.toggle('hidden', !more);
+    }
+
+    var HOMEVIEW_KEY = 'isaac-hq-homeview';
+    var homeView = 'timeline';
+    try { if (localStorage.getItem(HOMEVIEW_KEY) === 'list') homeView = 'list'; } catch (e) {}
+
+    function applyHomeView() {
+      document.getElementById('timeline-wrap').classList.toggle('hidden', homeView !== 'timeline');
+      document.getElementById('list-wrap').classList.toggle('hidden', homeView !== 'list');
+      document.getElementById('vs-timeline').classList.toggle('active', homeView === 'timeline');
+      document.getElementById('vs-list').classList.toggle('active', homeView === 'list');
+      document.getElementById('view-dashboard').classList.toggle('hv-list', homeView === 'list');
+    }
+
+    function setHomeView(v) {
+      if (v === homeView) return;
+      homeView = v;
+      try { localStorage.setItem(HOMEVIEW_KEY, v); } catch (e) {}
+      applyHomeView();
+      if (events.length) renderToday();
+      scrollHome();
+    }
+
+    function resetMoreBtns() {
+      ['show-more-btn', 'list-more-btn'].forEach(function (id) {
+        var b = document.getElementById(id); b.disabled = false; b.style.opacity = '1';
+      });
+    }
+
+    // Entries saved in the last 30 seconds are kept locally and merged into
+    // every fetch, so a new sleep or feed shows up immediately even if the
+    // sheet read happens to return slightly stale data.
+    var pendingLocal = [];
+
+    function rememberLocal(ev) {
+      if (!ev || !ev.timestamp) return;
+      if (!ev._row) ev._row = -Date.now();
+      pendingLocal.push({ ev: ev, until: Date.now() + 30000 });
+    }
+
+    function applyPendingLocal(list) {
+      var now = Date.now();
+      pendingLocal = pendingLocal.filter(function (p) { return p.until > now; });
+      pendingLocal.forEach(function (p) {
+        var e = p.ev, t = tsMs(e.timestamp);
+        var idx = list.findIndex(function (x) {
+          return (e._row > 0 && x._row === e._row) || (x.type === e.type && Math.abs(tsMs(x.timestamp) - t) < 2000);
+        });
+        if (idx >= 0) list[idx] = Object.assign({}, e, { _row: list[idx]._row });
+        else list.push(e);
+      });
+      return list;
+    }
+
+    function afterSave(ret) {
+      currentEditRow = null; currentEditLoggedBy = null; currentEditOrigTs = null;
+      if (ret && ret.timestamp) {
+        rememberLocal(ret);
+        events = applyPendingLocal(events.slice()).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+        var lf = events.find(function (e) { return e.type === 'feeding'; });
+        lastFeedTs = lf && lf.timestamp;
+        renderToday();
+        scrollHome();
+      }
+      showView('dashboard');
+    }
+
+    function loadDashboard(silent) {
+      silent = silent === true;
+      var rb = document.getElementById('refresh-btn');
+      if (rb) rb.classList.add('spin');
+      google.script.run.withFailureHandler(function (error) {
+        var list = document.getElementById('today-list');
+        if (!silent || !events.length) list.innerHTML = '<p style="color:var(--danger);font-size: calc(14px * var(--fs));">Couldn\'t load: ' + error.message + '</p>';
+        if (rb) rb.classList.remove('spin');
+      }).withSuccessHandler(function (data) {
+        events = applyPendingLocal(usableEvents(data)).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+        var lastFeed = events.find(function (e) { return e.type === 'feeding'; });
+        lastFeedTs = lastFeed && lastFeed.timestamp;
+        var sb = document.getElementById('sleep-btn');
+        sb.dataset.busy = '0'; sb.disabled = false;
+        if (!silent) {
+          extraDays = 0;
+          olderEventsCache = null;
+          resetMoreBtns();
+        }
+        renderToday();
+        if (!silent) scrollHome();
+        if (rb) rb.classList.remove('spin');
+      }).getRecentEvents(RECENT_ROWS, true);
+    }
+
+    // The "···" button reaches one more day back (timeline: at the top, list: at the bottom).
+    function showOlderLogs() {
+      function extend() {
+        var prevHeight = document.documentElement.scrollHeight;
+        extraDays++;
+        renderToday();
+        // The timeline grows upward, so keep what you were looking at in place.
+        if (homeView === 'timeline') window.scrollTo(0, window.scrollY + (document.documentElement.scrollHeight - prevHeight));
+        resetMoreBtns();
+      }
+
+      ['show-more-btn', 'list-more-btn'].forEach(function (id) {
+        var b = document.getElementById(id); b.disabled = true; b.style.opacity = '0.5';
+      });
+      if (olderEventsCache) { extend(); return; }
+
+      google.script.run.withSuccessHandler(function (data) {
+        olderEventsCache = data;
+        extend();
+      }).withFailureHandler(function (error) {
+        resetMoreBtns();
+        alert('Could not load older entries: ' + error.message);
+      }).getAllEvents();
+    }
+
+    // ── Sleep button and form ───────────────────────────────────────
+    function toggleSleep() {
+      var btn = document.getElementById('sleep-btn');
+      if (btn.dataset.busy === '1') return;
+      var open = currentOpenSleep();
+      btn.dataset.busy = '1'; btn.disabled = true;
+      document.getElementById('sleep-btn-label').textContent = open ? 'Waking up…' : 'Starting…';
+      var run = google.script.run
+        .withSuccessHandler(function (ret) { rememberLocal(ret); loadDashboard(); })
+        .withFailureHandler(function (error) {
+          btn.dataset.busy = '0'; btn.disabled = false;
+          updateSinceLabels();
+          alert('Couldn\'t update sleep: ' + error.message);
+        });
+      if (open) run.endSleep(); else run.startSleep();
+    }
+
+    var pendingSleepSeed = null;
+
+    // Tapping an empty spot in the sleep column starts a new sleep entry at
+    // that time. The column's top edge is `topMs`; each hour is PX_PER_HOUR
+    // tall, offset by TL_OFFSET.
+    function tapSleepColumn(ev, topMs) {
+      var rect = ev.currentTarget.getBoundingClientRect();
+      var hours = (ev.clientY - rect.top - TL_OFFSET) / PX_PER_HOUR;
+      var start = Math.round((topMs + hours * HOUR_MS) / 300000) * 300000;
+      var now = Date.now();
+      if (start > now) start = now - HOUR_MS;
+      var end = Math.min(start + HOUR_MS, now);
+      pendingEditEvent = null;
+      pendingSleepSeed = { start: start, end: end };
+      showView('log-sleep');
+    }
+
+    var sleepOngoing = false;
+
+    function setSleepOngoing(on) {
+      sleepOngoing = on;
+      document.getElementById('sleep-ongoing-btn').classList.toggle('active', on);
+      document.getElementById('sleep-end-wrap').classList.toggle('hidden', on);
+      updateSleepDuration();
+    }
+
+    function setFormParts(target, parts) {
+      document.getElementById(target + '-date').value = parts.date;
+      document.getElementById(target + '-time-only').value = parts.time;
+      document.getElementById(target + '-datetime').value = parts.date + 'T' + parts.time;
+      updateTimeDisplay(target);
+    }
+
+    function updateSleepDuration() {
+      var el = document.getElementById('sleep-duration');
+      try {
+        var s = new Date(getFormTimestamp('sleepstart')).getTime();
+        var en = sleepOngoing ? Date.now() : new Date(getFormTimestamp('sleepend')).getTime();
+        if (isNaN(s) || isNaN(en) || en <= s) { el.textContent = ''; return; }
+        el.textContent = sleepOngoing ? 'Asleep for ' + fmtDur((en - s) / 60000) : fmtDur((en - s) / 60000);
+      } catch (err) { el.textContent = ''; }
+    }
+
+    function openSleepForm() {
+      var editEv = (pendingEditEvent && pendingEditEvent.type === 'sleep') ? pendingEditEvent : null;
+      pendingEditEvent = null;
+      currentEditRow = editEv ? editEv._row : null;
+      currentEditLoggedBy = editEv ? editEv.logged_by : null;
+      currentEditOrigTs = editEv ? editEv.timestamp : null;
+
+      document.getElementById('sleep-form-title').textContent = editEv ? 'Edit Sleep' : 'Log Sleep';
+      document.getElementById('sleep-form-subtitle').textContent = editEv ? 'Editing an existing entry' : 'Add a nap you forgot to track';
+
+      if (editEv) {
+        setFormParts('sleepstart', tsToParts(editEv.timestamp));
+        setFormParts('sleepend', editEv.end_timestamp ? tsToParts(editEv.end_timestamp) : nowLocalParts());
+        setSleepOngoing(!editEv.end_timestamp);
+      } else {
+        var seed = pendingSleepSeed || { start: Date.now() - HOUR_MS, end: Date.now() };
+        pendingSleepSeed = null;
+        setFormParts('sleepstart', tsToParts(new Date(seed.start).toISOString()));
+        setFormParts('sleepend', tsToParts(new Date(seed.end).toISOString()));
+        setSleepOngoing(false);
+      }
+      var saveBtn = document.getElementById('sleep-save-btn');
+      saveBtn.disabled = false; saveBtn.textContent = 'Save';
+      updateTrashBtns();
+      document.getElementById('sleep-error').classList.add('hidden');
+      updateSleepDuration();
+    }
+
+    function saveSleep() {
+      var errEl = document.getElementById('sleep-error');
+      var startIso, endIso = '';
+      try {
+        startIso = getFormTimestamp('sleepstart');
+        if (!sleepOngoing) endIso = getFormTimestamp('sleepend');
+      } catch (err) {
+        errEl.textContent = 'Pick a start and end time'; errEl.classList.remove('hidden'); return;
+      }
+      if (!sleepOngoing && new Date(endIso) <= new Date(startIso)) {
+        errEl.textContent = 'Woke up needs to be after fell asleep'; errEl.classList.remove('hidden'); return;
+      }
+      errEl.classList.add('hidden');
+
+      var event = { timestamp: startIso, type: 'sleep', subtype: '', end_timestamp: endIso };
+      if (currentEditRow) {
+        event._row = currentEditRow;
+        event.logged_by = currentEditLoggedBy;
+        event._orig_ts = currentEditOrigTs;
+      }
+      var saveBtn = document.getElementById('sleep-save-btn');
+      saveBtn.disabled = true; saveBtn.textContent = 'Saving…';
+      google.script.run
+        .withSuccessHandler(function (ret) { afterSave(ret); })
+        .withFailureHandler(function (error) {
+          errEl.textContent = 'Save failed: ' + error.message;
+          errEl.classList.remove('hidden');
+          saveBtn.disabled = false; saveBtn.textContent = 'Save';
+        })
+        .saveEvent(event);
+    }
+
+    // ── Trends ──────────────────────────────────────────────────────
+    function computeDaySummary(dayMs, evs) {
+      var ds = startOfDayMs(dayMs), de = ds + DAY_MS;
+      var oz = evs.filter(function (e) { var t = tsMs(e.timestamp); return e.type === 'feeding' && t >= ds && t < de; })
+        .reduce(function (sum, e) { var v = parseFloat(e.amount_oz); return sum + (isNaN(v) ? 0 : v); }, 0);
+      return { oz: Math.round(oz * 100) / 100, sleepMin: sleepMinutesInRange(evs, ds, de) };
+    }
+
+    function median(arr) {
+      if (!arr.length) return null;
+      var a = arr.slice().sort(function (x, y) { return x - y; });
+      var m = Math.floor(a.length / 2);
+      return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2;
+    }
+
+    function minOfDay(ms) {
+      var d = new Date(ms);
+      return d.getHours() * 60 + d.getMinutes();
+    }
+
+    function clockLabel(mins) {
+      mins = Math.round(mins / 5) * 5;
+      var h = Math.floor(mins / 60) % 24, m = mins % 60;
+      var d = new Date(2000, 0, 1, h, m);
+      return clockStr(d);
+    }
+
+    // Seven 9am-to-9am windows (oldest first) with each day's sleep blocks,
+    // measured in ms from the window start. Shared by the chart and "usual day".
+    // 9am is when Isaac is reliably awake (after the early-morning nap), so the
+    // night and that early nap stay together in one column.
+    var WINDOW_HOUR = 9;
+    function buildSleepWindows() {
+      var now = Date.now(), nd = new Date(now);
+      var d0 = nd.getHours() >= WINDOW_HOUR ? nd.getDate() : nd.getDate() - 1;   // the day the current window began
+      var sleeps = events.filter(function (e) { return e.type === 'sleep'; })
+        .map(function (e) { return { s: tsMs(e.timestamp), e: sleepEndMs(e) }; });
+      var cols = [];
+      for (var k = 6; k >= 0; k--) {
+        var start = new Date(nd.getFullYear(), nd.getMonth(), d0 - k, WINDOW_HOUR, 0).getTime();
+        var end = new Date(nd.getFullYear(), nd.getMonth(), d0 - k + 1, WINDOW_HOUR, 0).getTime(), blocks = [];
+        sleeps.forEach(function (x) {
+          var bs = Math.max(x.s, start), be = Math.min(x.e, end, now);
+          if (be > bs) blocks.push({ s: bs - start, e: be - start });
+        });
+        blocks.sort(function (m, n) { return m.s - n.s; });
+        cols.push({
+          label: k === 0 ? 'Today' : new Date(start).toLocaleDateString([], { weekday: 'short' }),
+          blocks: blocks,
+          // bedtime: the first long sleep that starts from 5pm on
+          night: blocks.filter(function (x) { return x.s >= 8 * HOUR_MS && x.e - x.s >= 4 * HOUR_MS; })[0] || null,
+          // naps: daytime sleeps before bedtime, plus a nap after about 5am (the early-morning nap).
+          // Short wake-ups in the middle of the night are not counted as naps.
+          naps: blocks.filter(function (x, i, all) {
+            var nt = all.filter(function (y) { return y.s >= 8 * HOUR_MS && y.e - y.s >= 4 * HOUR_MS; })[0];
+            if (nt && x === nt) return false;
+            return nt ? (x.s < nt.s || x.s >= 20 * HOUR_MS) : x.s < 20 * HOUR_MS;
+          }),
+          total: blocks.reduce(function (t, x) { return t + (x.e - x.s); }, 0)
+        });
+      }
+      return cols;
+    }
+
+    // The typical day from the finished windows. Naps are grouped by time of day
+    // (not by their order in the day), so a day with an extra nap doesn't shift
+    // the others.
+    function computeUsual(cols) {
+      var done = cols.slice(0, 6).filter(function (c) { return c.blocks.length; });
+      if (done.length < 3) return null;
+      var nights = done.filter(function (c) { return c.night; });
+      var counts = done.map(function (c) { return c.naps.length; });
+      var k = Math.max(0, Math.min(5, Math.round(median(counts) || 0)));
+      var pts = [];
+      done.forEach(function (c, di) { c.naps.forEach(function (n) { pts.push({ s: n.s, e: n.e, day: di }); }); });
+      pts.sort(function (x, y) { return x.s - y.s; });
+      var naps = [];
+      if (k > 0 && pts.length >= k) {
+        var centers = [];
+        for (var i = 0; i < k; i++) centers.push(pts[Math.floor((i + 0.5) * pts.length / k)].s);
+        var groups;
+        for (var it = 0; it < 12; it++) {
+          groups = centers.map(function () { return []; });
+          pts.forEach(function (pt) {
+            var best = 0;
+            centers.forEach(function (c, ci) { if (Math.abs(pt.s - c) < Math.abs(pt.s - centers[best])) best = ci; });
+            groups[best].push(pt);
+          });
+          centers = centers.map(function (c, ci) {
+            return groups[ci].length ? groups[ci].reduce(function (t, pt) { return t + pt.s; }, 0) / groups[ci].length : c;
+          });
+        }
+        groups.forEach(function (g) {
+          var days = {}; g.forEach(function (pt) { days[pt.day] = 1; });
+          if (Object.keys(days).length >= done.length * 0.4) {
+            naps.push({ s: median(g.map(function (pt) { return pt.s; })), e: median(g.map(function (pt) { return pt.e; })) });
+          }
+        });
+        naps.sort(function (x, y) { return x.s - y.s; });
+      }
+      var night = nights.length >= 3
+        ? { s: median(nights.map(function (c) { return c.night.s; })), e: median(nights.map(function (c) { return c.night.e; })) }
+        : null;
+      var gaps = [];
+      done.forEach(function (c) {
+        for (var j = 1; j < c.blocks.length; j++) {
+          var g = (c.blocks[j].s - c.blocks[j - 1].e) / 60000;
+          if (g > 0 && g < 8 * 60) gaps.push(g);
+        }
+      });
+      return {
+        night: night, naps: naps, napsPerDay: Math.round(median(counts) || 0),
+        awake: gaps.length ? gaps.reduce(function (t, g) { return t + g; }, 0) / gaps.length : null
+      };
+    }
+
+    // One column per day (oldest to newest), time running down. Every column
+    // runs 9am to 9am, so the night and the early-morning nap stay in one piece
+    // and the columns only shift once a day, at 9am.
+    function renderPattern() {
+      var PX = 14, HH = 24 * PX, ticks = ['9a', '12p', '3p', '6p', '9p', '12a', '3a', '6a', '9a'];
+      var cols = buildSleepWindows();
+      function blk(x, cls) {
+        return '<div class="wk-blk' + cls + '" style="top:' + (x.s / HOUR_MS * PX) + 'px;height:' + Math.max((x.e - x.s) / HOUR_MS * PX, 2) + 'px;"></div>';
+      }
+      var u = computeUsual(cols), usual = [];
+      if (u) { if (u.night) usual.push(u.night); u.naps.forEach(function (n) { usual.push(n); }); }
+      var grid = ticks.map(function (t, i) {
+        return '<div class="wk-line" style="top:' + (i * 3 * PX) + 'px;"></div><span class="wk-tick" style="top:' + (i * 3 * PX - 4) + 'px;">' + t + '</span>';
+      }).join('');
+      var html = '<div class="wk"><div class="wk-grid" style="height:' + HH + 'px;">' + grid + '</div><div class="wk-cols">' +
+        cols.map(function (c, i) {
+          var n = c.naps.length;
+          return '<div class="wk-col"><div class="wk-head' + (i === 6 ? ' today' : '') + '">' + c.label + '</div>' +
+            '<div class="wk-track" style="height:' + HH + 'px;">' + c.blocks.map(function (x) { return blk(x, ''); }).join('') + '</div>' +
+            '<div class="wk-tot">' + (c.blocks.length ? Math.round(c.total / HOUR_MS) + 'h' : '-') + '</div>' +
+            '<div class="wk-sub">' + (c.blocks.length ? n + ' nap' + (n === 1 ? '' : 's') : '') + '</div></div>';
+        }).join('') +
+        '<div class="wk-col usual-col"><div class="wk-head usual">usual</div><div class="wk-track" style="height:' + HH + 'px;">' + usual.map(function (x) { return blk(x, ' usual'); }).join('') + '</div></div>' + '</div></div>';
+      document.getElementById('pattern-rows').innerHTML = html;
+    }
+
+    function renderUsualDay() {
+      var el = document.getElementById('usual-day');
+      var u = computeUsual(buildSleepWindows());
+      if (!u) {
+        el.innerHTML = '<p style="font-size: calc(13px * var(--fs));color:var(--text-muted);margin:0;">Log a few days of sleep to see Isaac\'s usual day.</p>';
+        return;
+      }
+      var rows = [];
+      function row(dot, k, v, soft) { rows.push('<div class="ud-row"><span class="k"><span class="dot ' + dot + '"></span>' + k + '</span><span class="v' + (soft ? ' soft' : '') + '">' + v + '</span></div>'); }
+      function clk(offMs) { return clockLabel((WINDOW_HOUR * 60 + offMs / 60000) % 1440); }
+      if (u.night) row('wake', 'wake up', clk(u.night.e));
+      // in clock order from wake-up: the early-morning nap first, then the daytime ones
+      var ordered = u.naps.filter(function (n) { return n.s >= 20 * HOUR_MS; }).concat(u.naps.filter(function (n) { return n.s < 20 * HOUR_MS; }));
+      ordered.forEach(function (n, i) { row('', 'nap ' + (i + 1), clk(n.s)); });
+      if (u.night) row('bed', 'bedtime', clk(u.night.s));
+      row('none', 'avg wake window', u.awake === null ? '-' : fmtDur(u.awake), true);
+      row('none', 'naps per day', String(u.napsPerDay), true);
+      var html = '<div class="ud-card">' + rows.join('') + '</div>';
+      el.innerHTML = html;
+    }
+
+    function renderTrendDayRow(dayMs, sourceEvents) {
+      var s = computeDaySummary(dayMs, sourceEvents);
+      var isToday = dayMs === startOfDayMs(Date.now());
+      var label = (isToday ? 'Today, ' : '') + new Date(dayMs).toLocaleDateString([], isToday ? { month: 'short', day: 'numeric' } : { weekday: 'short', month: 'short', day: 'numeric' });
+      var oz = isToday
+        ? '<span style="background:var(--feed-bg);color:var(--feed-text);font-weight:700;border-radius:12px;padding:2px 8px;">' + s.oz + 'oz</span>'
+        : s.oz + 'oz';
+      return '<div style="background:var(--surface);border-radius:18px;padding:10px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-low);">' +
+        '<span style="font-size: calc(14px * var(--fs));font-weight:600;">' + label + '</span>' +
+        '<span style="font-size: calc(13px * var(--fs));color:var(--text-mid);">' + fmtDur(s.sleepMin) + ' sleep · ' + oz + '</span></div>';
+    }
+
+    var TRENDS_INITIAL_DAYS = 7;
+    var TRENDS_EXTENDED_DAYS = 30;
+
+    // The n days before today (used for the averages).
+    function trendDays(n) {
+      var out = [], t = startOfDayMs(Date.now());
+      for (var j = 1; j <= n; j++) out.push(t - j * DAY_MS);
+      return out;
+    }
+
+    // Today (so far) followed by the n days before it (used for the list).
+    function trendListDays(n) {
+      return [startOfDayMs(Date.now())].concat(trendDays(n));
+    }
+
+    function renderTrends() {
+      var today = computeDaySummary(startOfDayMs(Date.now()), events);
+      document.getElementById('trend-today-sleep').textContent = fmtDur(today.sleepMin);
+      document.getElementById('trend-today-oz').textContent = today.oz + 'oz';
+
+      renderPattern();
+      renderUsualDay();
+
+      document.getElementById('trends-list').innerHTML = trendListDays(TRENDS_INITIAL_DAYS).map(function (d) { return renderTrendDayRow(d, events); }).join('');
+      document.getElementById('trends-show-more-btn').classList.remove('hidden');
+    }
+
+    // The home screen only loads recent rows; Trends needs about two weeks.
+    function refreshForTrends() {
+      google.script.run.withSuccessHandler(function (data) {
+        events = applyPendingLocal(usableEvents(data)).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+        if (!document.getElementById('view-trends').classList.contains('hidden')) renderTrends();
+      }).withFailureHandler(function () {}).getRecentEvents(200, true);
+    }
+
+    function showMoreTrendDays() {
+      var btn = document.getElementById('trends-show-more-btn');
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+
+      google.script.run.withSuccessHandler(function (data) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        document.getElementById('trends-list').innerHTML = trendListDays(TRENDS_EXTENDED_DAYS).map(function (d) { return renderTrendDayRow(d, data); }).join('');
+        document.getElementById('trends-show-more-btn').classList.add('hidden');
+      }).withFailureHandler(function (error) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        alert('Could not load more days: ' + error.message);
+      }).getAllEvents();
+    }
+
+
+    function paintToggle(containerId, val) {
+      var buttons = document.getElementById(containerId).querySelectorAll('button');
+      buttons.forEach(function (b) { b.classList.toggle('active', b.dataset.val === val); });
+    }
+
+    function selectFeedType(val) {
+      feedType = val;
+      paintToggle('feed-type-toggle', val);
+      document.getElementById('breast-fields').classList.toggle('hidden', val !== 'breast' && val !== 'combo');
+      document.getElementById('bottle-fields').classList.toggle('hidden', val !== 'bottle' && val !== 'combo');
+      document.getElementById('feed-error').classList.add('hidden');
+    }
+
+    function selectSource(val) {
+      val = val ? String(val).toLowerCase() : val;
+      sourceType = val;
+      paintToggle('source-toggle', val);
+      document.getElementById('formula-brand-fields').classList.toggle('hidden', val !== 'formula');
+    }
+
+    function selectFormulaBrand(val) {
+      formulaBrand = val;
+      paintToggle('formula-brand-toggle', val);
+    }
+
+    function openFeedForm() {
+      var editEv = (pendingEditEvent && pendingEditEvent.type === 'feeding') ? pendingEditEvent : null;
+      pendingEditEvent = null;
+      currentEditRow = editEv ? editEv._row : null;
+      currentEditLoggedBy = editEv ? editEv.logged_by : null;
+      currentEditOrigTs = editEv ? editEv.timestamp : null;
+
+      document.getElementById('feed-form-title').textContent = editEv ? 'Edit Feed' : 'Log Feed';
+      document.getElementById('feed-form-subtitle').textContent = editEv ? 'Editing an existing entry' : 'Type and brand carried over from your last feed';
+
+      if (editEv) {
+        var parts = tsToParts(editEv.timestamp);
+        document.getElementById('feed-date').value = parts.date;
+        document.getElementById('feed-time-only').value = parts.time;
+        document.getElementById('feed-datetime').value = parts.date + 'T' + parts.time;
+      } else {
+        var now = nowLocalParts();
+        document.getElementById('feed-date').value = now.date;
+        document.getElementById('feed-time-only').value = now.time;
+        document.getElementById('feed-datetime').value = now.date + 'T' + now.time;
+      }
+      updateTimeDisplay('feed');
+
+      var feedSaveBtn = document.getElementById('feed-save-btn');
+      feedSaveBtn.disabled = false; feedSaveBtn.textContent = 'Save';
+      updateTrashBtns();
+      feedType = null; sourceType = null; formulaBrand = null;
+      paintToggle('feed-type-toggle', null);
+      paintToggle('source-toggle', null);
+      paintToggle('formula-brand-toggle', null);
+      document.getElementById('breast-fields').classList.add('hidden');
+      document.getElementById('bottle-fields').classList.add('hidden');
+      document.getElementById('formula-brand-fields').classList.add('hidden');
+      document.getElementById('feed-error').classList.add('hidden');
+
+      if (editEv) {
+        selectFeedType(editEv.subtype);
+        document.getElementById('duration-left').value = editEv.duration_left || '';
+        document.getElementById('duration-right').value = editEv.duration_right || '';
+        document.getElementById('amount-oz').value = editEv.amount_oz || '';
+        if (editEv.source) selectSource(editEv.source);
+        if (editEv.formula_brand) selectFormulaBrand(editEv.formula_brand);
+        return;
+      }
+
+      var last = events.find(function (e) { return e.type === 'feeding'; });
+      if (last) {
+        selectFeedType(last.subtype);
+        document.getElementById('duration-left').value = last.duration_left || '';
+        document.getElementById('duration-right').value = last.duration_right || '';
+        // ounces stay blank on a new feed, on purpose
+        document.getElementById('amount-oz').value = '';
+        if (last.source) selectSource(last.source);
+        if (last.formula_brand) selectFormulaBrand(last.formula_brand);
+      }
+      // Refresh in the background in case a newer entry was logged elsewhere
+      // since this device last loaded the dashboard, then re-apply prefill.
+      google.script.run.withSuccessHandler(function (data) {
+        events = applyPendingLocal(usableEvents(data)).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+        if (document.getElementById('view-log-feed').classList.contains('hidden')) return;
+        if (currentEditRow) return;
+        var fresh = events.find(function (e) { return e.type === 'feeding'; });
+        if (!fresh) return;
+        selectFeedType(fresh.subtype);
+        document.getElementById('duration-left').value = fresh.duration_left || '';
+        document.getElementById('duration-right').value = fresh.duration_right || '';
+        if (fresh.source) selectSource(fresh.source);
+        if (fresh.formula_brand) selectFormulaBrand(fresh.formula_brand);
+      }).withFailureHandler(function () {}).getRecentEvents(200, true);
+    }
+
+    // ── Ounces: stepper, and the quick sheet for feeds logged without ounces ──
+    var DEFAULT_OZ = 4;
+    function ozStep(inputId, delta) {
+      var el = document.getElementById(inputId);
+      var v = parseFloat(el.value);
+      if (isNaN(v)) v = DEFAULT_OZ;
+      else v = Math.max(0.5, Math.round((v + delta) * 100) / 100);
+      el.value = v;
+    }
+
+    var quickOzRow = null;
+    function quickOz(rowNum) {
+      var e = eventLookup[rowNum];
+      if (!e) return;
+      if (e._row < 0) { alert('Still saving this one, try again in a moment.'); return; }
+      quickOzRow = rowNum;
+      document.getElementById('oz-sheet-sub').textContent = (e.subtype === 'combo' ? 'combo' : 'bottle') + ' at ' + fmtClock(tsMs(e.timestamp));
+      document.getElementById('oz-sheet-input').value = DEFAULT_OZ;
+      var b = document.getElementById('oz-sheet-done'); b.disabled = false; b.textContent = 'Done';
+      document.getElementById('oz-sheet-wrap').classList.remove('hidden');
+    }
+
+    function closeOzSheet() {
+      document.getElementById('oz-sheet-wrap').classList.add('hidden');
+      quickOzRow = null;
+    }
+
+    function ozFullEdit() {
+      var row = quickOzRow;
+      closeOzSheet();
+      if (row) editEvent(row);
+    }
+
+    function saveQuickOz() {
+      var e = eventLookup[quickOzRow];
+      var v = parseFloat(document.getElementById('oz-sheet-input').value);
+      if (!e || isNaN(v) || v <= 0) { closeOzSheet(); return; }
+      var origTs = e.timestamp, prev = e.amount_oz;
+      var ev = Object.assign({}, e, { amount_oz: v, _orig_ts: origTs });
+      closeOzSheet();
+      e.amount_oz = v;           // show it right away
+      renderToday();
+      google.script.run
+        .withSuccessHandler(function (ret) {
+          if (ret && ret.timestamp) rememberLocal(ret);
+        })
+        .withFailureHandler(function (error) {
+          e.amount_oz = prev;
+          renderToday();
+          alert('Couldn\'t save the ounces: ' + error.message);
+        })
+        .saveEvent(ev);
+    }
+
+    // ── Delete ──────────────────────────────────────────────────────
+    // A small trash icon in the form's corner opens a confirmation, so a
+    // delete always takes two deliberate taps.
+    var deleteKind = null;
+
+    function updateTrashBtns() {
+      ['feed', 'sleep'].forEach(function (kind) {
+        document.getElementById(kind + '-trash-btn').classList.toggle('hidden', !currentEditRow);
+      });
+    }
+
+    function askDelete(kind) {
+      if (!currentEditRow) return;
+      deleteKind = kind;
+      var b = document.getElementById('delete-confirm-btn');
+      b.disabled = false; b.textContent = 'Delete';
+      document.getElementById('delete-overlay').classList.remove('hidden');
+    }
+
+    function closeDeleteConfirm() {
+      document.getElementById('delete-overlay').classList.add('hidden');
+    }
+
+    function confirmDelete() {
+      if (!currentEditRow) { closeDeleteConfirm(); return; }
+      var b = document.getElementById('delete-confirm-btn');
+      var errEl = document.getElementById(deleteKind + '-error');
+      var row = currentEditRow;
+      b.disabled = true; b.textContent = 'Deleting…';
+      google.script.run
+        .withSuccessHandler(function () { closeDeleteConfirm(); afterDelete(row); })
+        .withFailureHandler(function (error) {
+          closeDeleteConfirm();
+          errEl.textContent = 'Delete failed: ' + error.message;
+          errEl.classList.remove('hidden');
+        })
+        .deleteEvent(row, currentEditOrigTs);
+    }
+
+    // Deleting a sheet row shifts every row below it, so row numbers held in
+    // memory are stale until the reload that showView('dashboard') triggers.
+    function afterDelete(row) {
+      currentEditRow = null; currentEditLoggedBy = null; currentEditOrigTs = null;
+      pendingLocal = [];
+      olderEventsCache = null;
+      events = events.filter(function (e) { return e._row !== row; });
+      var lf = events.find(function (e) { return e.type === 'feeding'; });
+      lastFeedTs = lf && lf.timestamp;
+      renderToday();
+      showView('dashboard');
+    }
+
+    function saveFeed() {
+      var errEl = document.getElementById('feed-error');
+      if (!feedType) { errEl.textContent = 'Select a feed type first'; errEl.classList.remove('hidden'); return; }
+      var showBottle = feedType === 'bottle' || feedType === 'combo';
+      if (showBottle && !sourceType) { errEl.textContent = 'Select breastmilk or formula'; errEl.classList.remove('hidden'); return; }
+      if (showBottle && sourceType === 'formula' && !formulaBrand) { errEl.textContent = 'Select a formula brand'; errEl.classList.remove('hidden'); return; }
+      errEl.classList.add('hidden');
+
+      var showBreast = feedType === 'breast' || feedType === 'combo';
+      var event = {
+        timestamp: getFormTimestamp('feed'),
+        type: 'feeding',
+        subtype: feedType,
+        duration_left: showBreast ? document.getElementById('duration-left').value : '',
+        duration_right: showBreast ? document.getElementById('duration-right').value : '',
+        source: showBottle ? sourceType : '',
+        amount_oz: showBottle ? document.getElementById('amount-oz').value : '',
+        formula_brand: (showBottle && sourceType === 'formula') ? formulaBrand : ''
+      };
+      if (currentEditRow) {
+        event._row = currentEditRow;
+        event.logged_by = currentEditLoggedBy;
+        event._orig_ts = currentEditOrigTs;
+      }
+      var saveBtn = document.getElementById('feed-save-btn');
+      saveBtn.disabled = true; saveBtn.textContent = 'Saving…';
+      google.script.run
+        .withSuccessHandler(function (ret) { afterSave(ret); })
+        .withFailureHandler(function (error) {
+          errEl.textContent = 'Save failed: ' + error.message;
+          errEl.classList.remove('hidden');
+          saveBtn.disabled = false; saveBtn.textContent = 'Save';
+        })
+        .saveEvent(event);
+    }
+
+    // Keep the timeline current without a manual refresh: poll while the
+    // dashboard is open, and reload the moment the app comes back to the
+    // foreground (phones suspend pages in the background).
+    function dashboardVisible() {
+      return !document.hidden && !document.getElementById('view-dashboard').classList.contains('hidden');
+    }
+    setInterval(function () { if (dashboardVisible()) loadDashboard(true); }, 60000);
+    document.addEventListener('visibilitychange', function () { if (dashboardVisible()) loadDashboard(true); });
+
+    applyHomeView();
+    loadDashboard();
+  </script>
+
+</body>
+</html>
