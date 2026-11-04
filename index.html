@@ -8,6 +8,10 @@
   <title>isaac hq</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="preconnect" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.googleusercontent.com">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -601,6 +605,7 @@
     .gate-go[disabled] { opacity:.6; }
   </style>
 
+  <script src="config.js"></script>
   <script src="api.js"></script>
   <script>
     var THEME_STORAGE_KEY = 'isaac-hq-theme';
@@ -996,12 +1001,19 @@
       return e && e.type === 'feeding' && e.subtype !== 'breast' && isNaN(parseFloat(e.amount_oz));
     }
 
+    // Anything that came from the Sheet is text, never markup.
+    function esc(s) {
+      return String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
     function feedSourceLabel(e) {
       if (e.subtype === 'breast') return 'Breast';
       var src = String(e.source || '').toLowerCase();
-      if (src === 'formula') return e.formula_brand || 'Formula';
+      if (src === 'formula') return esc(e.formula_brand || 'Formula');
       if (src === 'breastmilk') return 'Breastmilk';
-      return capitalize(e.source) || 'Bottle';
+      return esc(capitalize(e.source)) || 'Bottle';
     }
 
     function layoutColumn(blocks) {
@@ -1066,10 +1078,10 @@
         var h = Math.max((x.en - x.s) / HOUR_MS * PX_PER_HOUR, BLOCK_MIN_H) - 2;
         var open = !x.e.end_timestamp;
         var span = fmtClock(tsMs(x.e.timestamp)) + ' – ' + (open ? 'now' : fmtClock(tsMs(x.e.end_timestamp)));
-        return { top: yOf(x.s) + 1, height: h, cls: 'sleep' + (open ? ' live' : ''), row: x.e._row, main: fmtDur(fullMins), sub: span };
+        return { top: yOf(x.s) + 1, height: h, cls: 'sleep' + (open ? ' live' : ''), row: Number(x.e._row) || 0, main: fmtDur(fullMins), sub: span };
       });
       var feedBlocks = feeds.map(function (x) {
-        return { top: yOf(x.s) + 1, height: BLOCK_MIN_H - 2, cls: 'feed' + (isBlankOz(x.e) && x.e.subtype === 'bottle' ? ' blank' : ''), blank: isBlankOz(x.e), row: x.e._row, main: fmtClock(x.s), sub: feedMainLabel(x.e) + ' · ' + feedSourceLabel(x.e) };
+        return { top: yOf(x.s) + 1, height: BLOCK_MIN_H - 2, cls: 'feed' + (isBlankOz(x.e) && x.e.subtype === 'bottle' ? ' blank' : ''), blank: isBlankOz(x.e), row: Number(x.e._row) || 0, main: fmtClock(x.s), sub: feedMainLabel(x.e) + ' · ' + feedSourceLabel(x.e) };
       });
       var hSleep = layoutColumn(sleepBlocks), hFeed = layoutColumn(feedBlocks);
       var totalH = Math.max(hSleep, hFeed, (bottomMs - topMs) / HOUR_MS * PX_PER_HOUR + TL_OFFSET) + 6;
@@ -1208,7 +1220,7 @@
         var pill = feed ? feedMainLabel(e) : fmtDur((sleepEndMs(e) - tsMs(e.timestamp)) / 60000);
         var cls = feed ? 'feed' : 'sleep';
         var blank = isBlankOz(e);
-        html += '<div class="li-card" onclick="' + (blank ? 'quickOz(' : 'editEvent(') + e._row + ')">' +
+        html += '<div class="li-card" onclick="' + (blank ? 'quickOz(' : 'editEvent(') + (Number(e._row) || 0) + ')">' +
           '<div class="log-badge ' + cls + '">' + (feed ? '🍼' : '💤') + '</div>' +
           '<div class="li-body"><div class="li-main">' + main + '</div><div class="li-sub">' + sub + '</div></div>' +
           '<span class="li-pill ' + (blank && e.subtype === 'bottle' ? 'blank' : cls) + '">' + pill + '</span></div>';
@@ -1285,15 +1297,31 @@
       showView('dashboard');
     }
 
+    var paintedFromCache = false;
     function loadDashboard(silent) {
       silent = silent === true;
       var rb = document.getElementById('refresh-btn');
       if (rb) rb.classList.add('spin');
+      // First open: draw what this phone saw last time right away, then
+      // replace it as soon as the fresh copy arrives.
+      if (!silent && !events.length && window.IsaacAuth) {
+        var saved = IsaacAuth.readCache();
+        if (saved) {
+          try {
+            events = applyPendingLocal(usableEvents(saved)).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
+            var lf = events.find(function (e) { return e.type === 'feeding'; });
+            lastFeedTs = lf && lf.timestamp;
+            renderToday(); scrollHome();
+            paintedFromCache = true;
+          } catch (err) { events = []; paintedFromCache = false; }
+        }
+      }
       google.script.run.withFailureHandler(function (error) {
         var list = document.getElementById('today-list');
-        if (!silent || !events.length) list.innerHTML = '<p style="color:var(--danger);font-size: calc(14px * var(--fs));">Couldn\'t load: ' + error.message + '</p>';
+        if (!silent || !events.length) list.innerHTML = '<p style="color:var(--danger);font-size: calc(14px * var(--fs));">Couldn\'t load: ' + esc(error.message) + '</p>';
         if (rb) rb.classList.remove('spin');
       }).withSuccessHandler(function (data) {
+        if (window.IsaacAuth) IsaacAuth.writeCache(data);
         events = applyPendingLocal(usableEvents(data)).sort(function (a, b) { return tsMs(b.timestamp) - tsMs(a.timestamp); });
         var lastFeed = events.find(function (e) { return e.type === 'feeding'; });
         lastFeedTs = lastFeed && lastFeed.timestamp;
@@ -1305,7 +1333,8 @@
           resetMoreBtns();
         }
         renderToday();
-        if (!silent) scrollHome();
+        if (!silent && !paintedFromCache) scrollHome();
+        paintedFromCache = false;
         if (rb) rb.classList.remove('spin');
       }).getRecentEvents(RECENT_ROWS, true);
     }

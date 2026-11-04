@@ -2,10 +2,11 @@
 // app works unchanged. The passcode and the name live only in this phone's
 // browser (localStorage); nothing secret is in this file.
 (function () {
-  // Paste the Apps Script web app URL here (it ends in /exec).
-  var API_URL = 'https://script.google.com/macros/s/AKfycbweXGB8ywCQPQX-uMA5G1l9FzNTF3B1JMbjDxGvmHaD1EO0Gmzmx90zKOrpuRupOFE/exec';
+  // The Apps Script web app URL lives in config.js, so this file can be
+  // replaced without losing it.
+  var API_URL = window.ISAAC_API_URL || 'PASTE_YOUR_WEB_APP_URL_HERE';
 
-  var K_PASS = 'isaac-hq-pass', K_WHO = 'isaac-hq-who';
+  var K_PASS = 'isaac-hq-pass', K_WHO = 'isaac-hq-who', K_CACHE = 'isaac-hq-cache';
   var NAMES = ['Natali', 'Steve'];
   function get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function set(k, v) { try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
@@ -40,7 +41,7 @@
     if (!pass || !who) { enqueue(job); openGate(''); return; }
     post(job.fn, job.args, pass, who).then(function (res) {
       if (res && res.ok) { job.ok(res.result); return; }
-      if (res && res.code === 'AUTH') { set(K_PASS, null); enqueue(job); openGate("that passcode didn't work"); return; }
+      if (res && res.code === 'AUTH') { set(K_PASS, null); set(K_CACHE, null); enqueue(job); openGate("that passcode didn't work"); return; }
       job.bad(new Error((res && res.message) || 'Something went wrong.'));
     }, function (err) { job.bad(err); });
   }
@@ -89,7 +90,16 @@
     submit: submit,
     who: function () { return get(K_WHO); },
     setWho: function (n) { if (NAMES.indexOf(n) !== -1) set(K_WHO, n); },
-    forget: function () { set(K_PASS, null); location.reload(); }
+    forget: function () { set(K_PASS, null); set(K_CACHE, null); location.reload(); },
+    // Last copy of the recent entries, kept on this phone only, so the app can
+    // draw instantly while the fresh copy loads. Only used once signed in.
+    readCache: function () {
+      if (!get(K_PASS) || !get(K_WHO)) return null;
+      try { var c = JSON.parse(get(K_CACHE) || 'null'); return (c && Array.isArray(c.data)) ? c.data : null; } catch (e) { return null; }
+    },
+    writeCache: function (data) {
+      if (Array.isArray(data)) set(K_CACHE, JSON.stringify({ t: Date.now(), data: data }));
+    }
   };
 
   // ── google.script.run lookalike ──
